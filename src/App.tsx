@@ -2,6 +2,7 @@ import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { TrustStrip } from "@/components/TrustStrip";
 import { About } from "@/components/About";
+import { ProductFinder } from "@/components/ProductFinder";
 import { Services } from "@/components/Services";
 import { FreeDesign } from "@/components/FreeDesign";
 import { Process } from "@/components/Process";
@@ -26,6 +27,7 @@ export default function App() {
         <Hero />
         <TrustStrip />
         <About />
+        <ProductFinder />
         <Services />
         <FreeDesign />
         <Process />
