@@ -59,5 +59,42 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Meta Pixel Event Tracking for Lead & Contact -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // সব ক্লিক লিসেন করবো
+        document.addEventListener('click', function(e) {
+          // বাটন বা লিঙ্ক চেক করবো
+          var btn = e.target.closest('button, a');
+          if (!btn) return;
+          
+          var text = (btn.innerText || btn.textContent || '').trim();
+          var href = (btn.getAttribute('href') || '').toLowerCase();
+          
+          // Lead Event: যদি "কোটেশন নিন" লেখা থাকে
+          if (text.includes('কোটেশন নিন') || text.includes('কোটেশন')) {
+            fbq('track', 'Lead', {
+              content_name: 'Packaging Quotation Request',
+              content_category: 'Lead Generation',
+              value: 0.00,
+              currency: 'BDT'
+            });
+            console.log('✅ Meta Pixel: Lead Event Tracked');
+          }
+          
+          // Contact Event: যদি WhatsApp বাটন বা লিঙ্ক হয়
+          if (text.includes('WhatsApp') || text.includes('ওয়াটসঅ্যাপ') || href.includes('whatsapp') || href.includes('wa.me')) {
+            fbq('track', 'Contact', {
+              method: 'WhatsApp',
+              content_category: 'Customer Contact'
+            });
+            console.log('✅ Meta Pixel: Contact Event Tracked');
+          }
+        });
+      });
+    </script>
+    <!-- End Meta Pixel Event Tracking -->
+    
   </body>
 </html>
