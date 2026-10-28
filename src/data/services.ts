@@ -15,6 +15,7 @@ import {
 // ==================== IMAGE IMPORTS ====================
 
 import cylinderAI from "@/assets/services/cylinder.jpg";
+import artPaperImage from "@/assets/services/art-paper.jpg";
 
 // LD Packet (5 images)
 import ldPacket1 from "@/assets/services2/printed-ld-packet-1.png";
@@ -64,7 +65,7 @@ export const SERVICE_IMAGES: Record<string, string[]> = {
   "ld-packet": [ldPacket1, ldPacket2, ldPacket3, ldPacket4, ldPacket5],
   "foil-packet": [foilPacket1, foilPacket2, foilPacket3, foilPacket4, foilPacket5],
   sticker: [sticker1, sticker2, sticker3, sticker4],
-  "art-paper": [sticker1, sticker2, sticker3, sticker4],
+  "art-paper": [artPaperImage],
   "custom-box": [box1, box2, box3, box4],
   "ready-made": [readymadeFoil, readymadeZipper, readymadeLd, readymadeShrink, readymadeSquare],
   "security-poly": [security1, security2, security3],
