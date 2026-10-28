@@ -10,7 +10,6 @@ import {
   Package as PackageIcon,
   Lightbulb,
   Target,
-  ShoppingCart,
 } from "lucide-react";
 import { Container, SectionHeading, Reveal, Button, WhatsAppIcon } from "./ui";
 import { SERVICES, SERVICE_IMAGES, PACKET_SERVICE_IDS, type Service, type ReadymadeProduct } from "@/data/services";
@@ -89,18 +88,12 @@ function ServiceImageSlideshow({
 
   return (
     <div className={cn("relative w-full shrink-0 overflow-hidden bg-mist", className)}>
-      {images.map((src, idx) => (
-        <img
-          key={idx}
-          src={src}
-          alt={`${title} ${idx + 1}`}
-          loading="lazy"
-          className={cn(
-            "absolute inset-0 h-full w-full object-cover transition-all duration-1000 ease-in-out",
-            idx === currentIndex ? "opacity-100 scale-100" : "opacity-0 scale-105"
-          )}
-        />
-      ))}
+      <img
+        src={images[currentIndex]}
+        alt={`${title} — নমুনা ${currentIndex + 1}`}
+        loading="lazy"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
       <div className="absolute inset-0 bg-linear-to-t from-royal-950/20 via-transparent to-transparent" />
 
       {images.length > 1 && (
@@ -123,234 +116,31 @@ function ServiceImageSlideshow({
 /* -------------------------------------------------
    Compact Service Card
 -------------------------------------------------- */
-function ServiceCard({
-  service,
-  onDetail,
-  index = 0,
-}: {
-  service: Service;
-  onDetail: (s: Service) => void;
-  index?: number;
-}) {
-  const { icon: Icon, no, title, titleHighlight, shortSummary, approx, approxLabel, facts } = service;
+function ServiceCard({ service, onDetail }: { service: Service; onDetail: (s: Service) => void }) {
   const packet = PACKET_SERVICE_IDS.has(service.id);
-  const reverse = index % 2 === 1;
+  const Icon = service.icon;
 
   return (
-    <div
-      className={cn(
-        "group flex flex-col overflow-hidden rounded-2xl border border-line bg-white shadow-card transition-all duration-300 hover:border-gold-300/70 hover:shadow-soft lg:flex-row",
-        reverse && "lg:flex-row-reverse"
-      )}
-    >
-      <ServiceImageSlideshow
-        service={service}
-        className="h-40 w-full shrink-0 sm:h-48 lg:h-auto lg:w-[280px] xl:w-[320px]"
-      />
-
-      <div className="flex flex-1 flex-col p-4 sm:p-5">
-        <div className="flex items-start justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-linear-to-br from-royal-700 to-royal-900 text-white shadow-sm sm:h-8 sm:w-8">
-              <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-            </span>
-            <span className="text-[9px] font-bold tracking-widest text-gold-600 sm:text-[10px]">SERVICE {no}</span>
-          </div>
-          {approx && (
-            <span className="shrink-0 rounded-full bg-gold-50 px-2 py-1 text-[10px] font-bold text-gold-700 ring-1 ring-gold-100 sm:px-2.5 sm:text-[11px]">
-              {approx}
-            </span>
-          )}
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-royal-200 hover:shadow-soft">
+      <ServiceImageSlideshow service={service} className="h-48 sm:h-52" />
+      <div className="flex flex-1 flex-col p-5">
+        <div className="flex items-center justify-between gap-3">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-royal-50 text-royal-700"><Icon className="h-4 w-4" /></span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-gold-600">Service {service.no}</span>
         </div>
-
-        <div className="mt-3 flex items-center gap-2">
-          <span className="h-5 w-1 rounded-full bg-linear-to-b from-gold-300 to-gold-500" />
-          <h3 className="line-clamp-2 flex-1 text-[15px] font-extrabold leading-snug text-royal-800 sm:text-[16px]">
-            <HighlightedTitle title={title} highlight={titleHighlight} />
-          </h3>
-        </div>
-        <p className="mt-1.5 line-clamp-2 text-[13px] leading-relaxed text-muted sm:text-[13.5px]">
-          {shortSummary || service.summary}
-        </p>
-
-        {facts && facts.length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            {facts.slice(0, 2).map((f) => (
-              <span
-                key={f.label}
-                className="rounded-full bg-mist px-2.5 py-1 text-[11px] font-medium text-royal-800 ring-1 ring-line"
-              >
-                {f.label}: {f.value}
-              </span>
-            ))}
-          </div>
-        )}
-
-        {approxLabel && !approx && (
-          <p className="mt-2 text-[11px] font-semibold uppercase tracking-wide text-muted">
-            {approxLabel}
-          </p>
-        )}
-
-        <div className="mt-auto pt-4">
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              type="button"
-              onClick={() => onDetail(service)}
-              className="inline-flex h-10 items-center justify-center gap-1.5 rounded-xl border border-line bg-white px-3 text-[12px] font-semibold text-ink transition-colors hover:border-royal-200 hover:bg-mist sm:text-[13px]"
-            >
-              <Eye className="h-4 w-4 text-gold-600" />
-              বিস্তারিত দেখুন
-            </button>
-            <a
-              href={(packet ? waLinkPacket(service.cta.message) : waLink(service.cta.message))}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-10 items-center justify-center gap-1.5 rounded-xl bg-[#25D366] px-3 text-[11px] font-bold text-white shadow-sm transition-colors hover:bg-[#1fb858] sm:text-[12px]"
-            >
-              <WhatsAppIcon className="h-4 w-4" />
-              {service.cta.text}
-            </a>
-          </div>
-          {packet && (
-            <p className="mt-2 text-center text-[10px] font-medium text-muted">
-              WA: {CONTACT.whatsappPacketDisplay}
-            </p>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* -------------------------------------------------
-   Featured Cylinder Card
--------------------------------------------------- */
-function FeaturedCylinder({
-  service,
-  onDetail,
-}: {
-  service: Service;
-  onDetail: (s: Service) => void;
-}) {
-  const { icon: Icon, title, titleHighlight, shortSummary } = service;
-  return (
-    <div className="overflow-hidden rounded-3xl border border-royal-100 bg-white shadow-soft">
-      <div className="grid gap-0 md:grid-cols-[240px_1fr] lg:grid-cols-[280px_1fr]">
-        <ServiceImageSlideshow service={service} className="h-44 md:h-full min-h-44" />
-        <div className="p-5 sm:p-7">
-          <div className="flex items-center gap-2.5">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-royal-700 to-royal-900 text-white shadow-sm">
-              <Icon className="h-5 w-5" />
-            </span>
-            <span className="rounded-full bg-gold-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-gold-700">
-              Key Component · Service {service.no}
-            </span>
-          </div>
-          <h3 className="mt-3 text-[18px] font-extrabold leading-snug text-royal-800 sm:text-[20px]">
-            <HighlightedTitle title={title} highlight={titleHighlight} />
-          </h3>
-          <p className="mt-2 text-[13px] leading-relaxed text-muted sm:text-[14px]">{shortSummary}</p>
-
-          <div className="mt-4 grid grid-cols-2 gap-2">
-            <div className="rounded-xl border border-gold-200 bg-gold-50 p-3">
-              <p className="text-[11px] font-bold uppercase tracking-wide text-gold-700">Digital</p>
-              <p className="mt-1 text-[12px] leading-snug text-ink">ভালো quality, detail বেশি</p>
-            </div>
-            <div className="rounded-xl border border-line bg-white p-3">
-              <p className="text-[11px] font-bold uppercase tracking-wide text-muted">বাংলা</p>
-              <p className="mt-1 text-[12px] leading-snug text-ink">কম খরচ, বাজেট বান্ধব</p>
-            </div>
-          </div>
-
-          <div className="mt-5 grid grid-cols-2 gap-2.5">
-            <button
-              type="button"
-              onClick={() => onDetail(service)}
-              className="inline-flex h-11 items-center justify-center gap-1.5 rounded-xl border border-royal-200 bg-white px-4 text-[12px] font-semibold text-royal-700 hover:bg-mist sm:text-[13px]"
-            >
-              <Eye className="h-4 w-4" />
-              বিস্তারিত দেখুন
-            </button>
-            <a
-              href={waLinkPacket(service.cta.message)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-11 items-center justify-center gap-1.5 rounded-xl bg-[#25D366] px-4 text-[11px] font-bold text-white shadow-sm hover:bg-[#1fb858] sm:text-[12px]"
-            >
-              <WhatsAppIcon className="h-4 w-4" />
-              {service.cta.text}
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* -------------------------------------------------
-   Ready-made Packet Featured Card (Special)
--------------------------------------------------- */
-function ReadymadeFeatured({
-  service,
-  onDetail,
-}: {
-  service: Service;
-  onDetail: (s: Service) => void;
-}) {
-  const { icon: Icon, title, titleHighlight, shortSummary, readymadeProducts } = service;
-
-  return (
-    <div className="relative overflow-hidden rounded-3xl border-2 border-gold-300 bg-linear-to-br from-gold-50 via-white to-royal-50 shadow-soft">
-      <div className="absolute right-4 top-4 z-10 flex items-center gap-1.5 rounded-full bg-linear-to-r from-gold-400 to-gold-600 px-3 py-1.5 shadow-lg">
-        <Sparkles className="h-3.5 w-3.5 text-white" />
-        <span className="text-[10px] font-bold uppercase tracking-wider text-white">Popular Choice</span>
-      </div>
-
-      <div className="grid gap-0 md:grid-cols-[280px_1fr] lg:grid-cols-[320px_1fr]">
-        <ServiceImageSlideshow service={service} className="h-52 md:h-full min-h-52" />
-
-        <div className="p-5 sm:p-7">
-          <div className="flex items-center gap-2.5">
-            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-linear-to-br from-gold-500 to-gold-700 text-white shadow-lg">
-              <Icon className="h-5 w-5" />
-            </span>
-            <span className="rounded-full bg-royal-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-royal-700">
-              Ready Stock · Service {service.no}
-            </span>
-          </div>
-
-          <h3 className="mt-3 text-[20px] font-extrabold leading-snug text-royal-800 sm:text-[24px]">
-            <HighlightedTitle title={title} highlight={titleHighlight} />
-          </h3>
-          <p className="mt-2 text-[13px] leading-relaxed text-muted sm:text-[14px]">{shortSummary}</p>
-
-          <div className="mt-4 grid grid-cols-3 gap-2">
-            <div className="rounded-xl border border-gold-200 bg-white p-2.5 text-center">
-              <p className="text-[10px] font-bold uppercase tracking-wide text-gold-700">Min Order</p>
-              <p className="mt-0.5 text-[13px] font-extrabold text-ink">1 KG</p>
-            </div>
-            <div className="rounded-xl border border-gold-200 bg-white p-2.5 text-center">
-              <p className="text-[10px] font-bold uppercase tracking-wide text-gold-700">Products</p>
-              <p className="mt-0.5 text-[13px] font-extrabold text-ink">{readymadeProducts?.length || 5}+</p>
-            </div>
-            <div className="rounded-xl border border-gold-200 bg-white p-2.5 text-center">
-              <p className="text-[10px] font-bold uppercase tracking-wide text-gold-700">Delivery</p>
-              <p className="mt-0.5 text-[13px] font-extrabold text-ink">দ্রুত</p>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => onDetail(service)}
-            className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-royal-700 to-royal-900 px-5 py-3 text-[14px] font-bold text-white shadow-lg transition-all hover:shadow-xl"
-          >
-            <ShoppingCart className="h-4 w-4" />
-            সব প্রোডাক্ট ও দাম দেখুন
+        <h3 className="mt-4 text-base font-extrabold leading-snug text-royal-900">{service.title}</h3>
+        <p className="mt-2 line-clamp-3 text-[13px] leading-relaxed text-muted">{service.shortSummary || service.summary}</p>
+        {service.approx && <p className="mt-3 text-sm font-bold text-royal-700">{service.approx}</p>}
+        <div className="mt-auto grid grid-cols-2 gap-2 pt-5">
+          <button type="button" onClick={() => onDetail(service)} className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded-xl border border-royal-200 px-2 text-xs font-bold text-royal-700 transition-colors hover:bg-royal-50">
+            <Eye className="h-4 w-4" /> বিস্তারিত
           </button>
+          <a href={packet ? waLinkPacket(service.cta.message) : waLink(service.cta.message)} target="_blank" rel="noopener noreferrer" aria-label={`${service.title} সম্পর্কে WhatsApp করুন`} className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded-xl bg-royal-900 px-2 text-xs font-bold text-white transition-colors hover:bg-royal-700">
+            <WhatsAppIcon className="h-4 w-4" /> WhatsApp
+          </a>
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 
@@ -751,8 +541,7 @@ function DetailModal({ service, onClose }: { service: Service | null; onClose: (
 -------------------------------------------------- */
 export function Services() {
   const [selected, setSelected] = useState<Service | null>(null);
-  const featured = SERVICES.filter((s) => s.featured);
-  const rest = SERVICES.filter((s) => !s.featured);
+  const services = SERVICES.filter((service) => service.id !== "ready-made");
 
   return (
     <section id="services" className="scroll-mt-24 bg-mist py-10 sm:py-16">
@@ -761,29 +550,17 @@ export function Services() {
           <SectionHeading
             center
             eyebrow="আমাদের সেবা"
-            title={<>যা যা সেবা দিচ্ছি</>}
-            subtitle="সংক্ষেপে দেখুন — বিস্তারিত জানতে কার্ডে ক্লিক করুন। প্রতিটি সেবার নমুনা ছবি সহ বিস্তারিত তথ্য উপলব্ধ।"
+            title={<>আপনার ব্র্যান্ডের জন্য আমাদের সেবা</>}
+            subtitle="কাস্টম প্রিন্টিং থেকে প্যাকেজিং—আপনার প্রয়োজন অনুযায়ী সঠিক সেবাটি বেছে নিন।"
           />
         </Reveal>
 
-        <div className="mt-6 space-y-4 sm:mt-8 sm:space-y-6">
-          {featured.map((s) => (
-            <Reveal key={s.id}>
-              {s.id === "ready-made" ? (
-                <ReadymadeFeatured service={s} onDetail={setSelected} />
-              ) : (
-                <FeaturedCylinder service={s} onDetail={setSelected} />
-              )}
+        <div className="mt-7 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+          {services.map((service, i) => (
+            <Reveal key={service.id} delay={(i % 3) * 50} className="h-full">
+              <ServiceCard service={service} onDetail={setSelected} />
             </Reveal>
           ))}
-
-          <div className="flex flex-col gap-5">
-            {rest.map((s, i) => (
-              <Reveal key={s.id} delay={i * 30}>
-                <ServiceCard service={s} onDetail={setSelected} index={i} />
-              </Reveal>
-            ))}
-          </div>
         </div>
       </Container>
 

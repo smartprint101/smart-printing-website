@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/Navbar";
-import { Hero } from "@/components/Hero";
+import { Products } from "@/components/Products";
 import { TrustStrip } from "@/components/TrustStrip";
 import { About } from "@/components/About";
 import { ProductFinder } from "@/components/ProductFinder";
@@ -24,11 +24,11 @@ export default function App() {
     <div className="min-h-screen bg-white">
       <Navbar />
       <main>
-        <Hero />
+        <Products />
+        <Services />
         <TrustStrip />
         <About />
         <ProductFinder />
-        <Services />
         <FreeDesign />
         <Process />
         <Pricing />

@@ -40,9 +40,10 @@ export const HOURS = {
 
 export const NAV_LINKS = [
   { label: "হোম", href: "#home" },
-  { label: "আমাদের সম্পর্কে", href: "#about" },
-  { label: "প্যাকেট ফাইন্ডার", href: "#product-finder" },
+  { label: "প্রোডাক্ট", href: "#products" },
   { label: "আমাদের সেবা", href: "#services" },
+  { label: "প্যাকেট ফাইন্ডার", href: "#product-finder" },
+  { label: "আমাদের সম্পর্কে", href: "#about" },
   { label: "মূল্য ধারণা", href: "#pricing" },
   { label: "কাজের প্রক্রিয়া", href: "#process" },
   { label: "আমাদের কাজ", href: "#portfolio" },
