@@ -1,11 +1,11 @@
 import { Container, SectionHeading, Reveal } from "./ui";
 
 // ==================== IMAGE IMPORTS ====================
-import ldPouchImg from "@/assets/services2/Ldradymet.png";
-import foilPouchImg from "@/assets/services2/foilradymet.png";
-import zipperPouchImg from "@/assets/services2/geperradymet.png";
-import stickerImg from "@/assets/services2/Sticker1.png";
-import boxImg from "@/assets/services2/box1.png";
+import ldPouchImg from "@/assets/services2/Ldradymet.webp";
+import foilPouchImg from "@/assets/services2/foilradymet.webp";
+import zipperPouchImg from "@/assets/services2/geperradymet.webp";
+import stickerImg from "@/assets/services2/Sticker1.webp";
+import boxImg from "@/assets/services2/box1.webp";
 
 const SHOWCASE = [
   { label: "LD Pouch", src: ldPouchImg },

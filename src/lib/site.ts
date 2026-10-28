@@ -1,3 +1,5 @@
+export const SITE_URL = "https://smartpackagingbd.com";
+
 // ============================================================
 // Central, editable company configuration for Smart Printing Packaging
 // ============================================================
@@ -9,15 +11,18 @@ export const COMPANY = {
   tagline: "আপনার ব্র্যান্ডের জন্য Printing & Packaging Solution",
 };
 
+const WHATSAPP_NUMBER = "8801660191039";
+const WHATSAPP_DISPLAY = "01660-191039";
+
 export const CONTACT = {
   phoneDisplay: "+880 1689-318187",
   phoneDial: "+8801689318187",
-  // General WhatsApp (general services & support)
-  whatsappNumber: "8801689318187", // wa.me format (no +, no spaces)
-  whatsappDisplay: "+880 1689-318187",
-  // Dedicated WhatsApp for Cylinder / LD Packet / Foil Packet / Custom Packaging
-  whatsappPacketNumber: "8801660191039",
-  whatsappPacketDisplay: "+880 1660-191039",
+  // All product, service and quotation enquiries use this one WhatsApp number.
+  whatsappNumber: WHATSAPP_NUMBER, // wa.me format (no +, no spaces)
+  whatsappDisplay: WHATSAPP_DISPLAY,
+  // Compatibility aliases for packet tools; intentionally the same contact.
+  whatsappPacketNumber: WHATSAPP_NUMBER,
+  whatsappPacketDisplay: WHATSAPP_DISPLAY,
   email: "nationalprintingar@gmail.com",
   // Editable: replace with the official Facebook page link
   facebook: "https://www.facebook.com/",
@@ -27,8 +32,9 @@ export const CONTACT = {
 export const ADDRESS = {
   lines: ["১০১ কে পি ঘোষ রোড,", "আরমানীটোলা, বংশাল,", "ঢাকা-১১০০, বাংলাদেশ"],
   mapEmbed:
-    "https://maps.google.com/maps?q=Armanitola%2C%20Bangshal%2C%20Dhaka&t=&z=15&ie=UTF8&iwloc=&output=embed",
-  mapLink: "https://www.google.com/maps/search/?api=1&query=Armanitola+Bangshal+Dhaka",
+    "https://maps.google.com/maps?q=101%20K%20P%20Ghosh%20Road%2C%20Armanitola%2C%20Dhaka%201100&t=&z=16&ie=UTF8&iwloc=&output=embed",
+  mapLink:
+    "https://www.google.com/maps/search/?api=1&query=101+K+P+Ghosh+Road+Armanitola+Bangshal+Dhaka+1100",
 };
 
 export const HOURS = {
@@ -39,15 +45,10 @@ export const HOURS = {
 };
 
 export const NAV_LINKS = [
-  { label: "হোম", href: "#home" },
   { label: "প্রোডাক্ট", href: "#products" },
-  { label: "আমাদের সেবা", href: "#services" },
-  { label: "প্যাকেট ফাইন্ডার", href: "#product-finder" },
-  { label: "আমাদের সম্পর্কে", href: "#about" },
-  { label: "মূল্য ধারণা", href: "#pricing" },
-  { label: "কাজের প্রক্রিয়া", href: "#process" },
-  { label: "আমাদের কাজ", href: "#portfolio" },
-  { label: "FAQ", href: "#faq" },
+  { label: "কাস্টম সেবা", href: "#services" },
+  { label: "অর্ডারের নিয়ম", href: "#process" },
+  { label: "প্যাকেজিং গাইড", href: "#guides" },
   { label: "যোগাযোগ", href: "#contact" },
 ];
 

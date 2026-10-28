@@ -41,11 +41,14 @@ export function Reveal({
   as?: ElementType;
 }) {
   const ref = useRef<HTMLElement | null>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || !("IntersectionObserver" in window)) return;
+    // Keep pre-rendered content visible without JavaScript; animate only below the fold.
+    if (el.getBoundingClientRect().top < window.innerHeight) return;
+    setVisible(false);
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -158,7 +161,7 @@ type Size = "sm" | "md" | "lg";
 const variantClasses: Record<Variant, string> = {
   gold: "bg-gradient-to-b from-gold-300 to-gold-500 text-royal-900 shadow-[var(--shadow-gold)] hover:from-gold-200 hover:to-gold-400",
   royal: "bg-royal-700 text-white hover:bg-royal-800",
-  whatsapp: "bg-[#25D366] text-white hover:bg-[#1fb858] shadow-[0_12px_30px_-12px_rgba(37,211,102,0.6)]",
+  whatsapp: "bg-[#176b46] text-white hover:bg-[#105436]",
   outlineGold: "border border-gold-400/70 text-gold-600 hover:bg-gold-50",
   outlineLight: "border border-white/30 text-white hover:bg-white/10",
   white: "bg-white text-royal-800 hover:bg-royal-50 shadow-card",
@@ -232,7 +235,7 @@ export function CountUp({
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || !("IntersectionObserver" in window)) return;
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !started.current) {

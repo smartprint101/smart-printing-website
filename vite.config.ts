@@ -8,7 +8,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ isPreview }) => ({
+  // Preview the static export without a misleading homepage fallback for unknown URLs.
+  appType: isPreview ? "mpa" : "spa",
   plugins: [react(), tailwindcss()],
   server: { allowedHosts: [".e2b.app"] },
   resolve: {
@@ -16,4 +18,4 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
     },
   },
-});
+}));

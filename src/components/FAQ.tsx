@@ -1,8 +1,6 @@
-import { useState } from "react";
-import { Plus, MessageCircleQuestion } from "lucide-react";
-import { Container, SectionHeading, Reveal, Button, WhatsAppIcon } from "./ui";
+import { Plus } from "lucide-react";
+import { Container } from "./ui";
 import { waLink } from "@/lib/site";
-import { cn } from "@/utils/cn";
 
 const FAQS = [
   { q: "LD Packet-এর Minimum Order কত?", a: "150 KG।" },
@@ -19,7 +17,10 @@ const FAQS = [
     q: "প্রতিটি নতুন Product-এর জন্য কি নতুন Cylinder লাগে?",
     a: "নতুন Item/Design অনুযায়ী নতুন Cylinder Set প্রয়োজন হতে পারে।",
   },
-  { q: "Cylinder-এর দাম কীভাবে নির্ধারিত হয়?", a: "Size ও specification অনুযায়ী।" },
+  {
+    q: "Cylinder-এর দাম কীভাবে নির্ধারিত হয়?",
+    a: "Size ও specification অনুযায়ী।",
+  },
   {
     q: "Digital Cylinder ও বাংলা Cylinder-এর পার্থক্য কী?",
     a: "Digital Cylinder তুলনামূলক ভালো print quality-এর জন্য ব্যবহৃত হয় এবং এর cost বেশি। বাংলা Cylinder তুলনামূলক কম খরচের option, তবে print quality তুলনামূলক কম হতে পারে।",
@@ -39,83 +40,41 @@ const FAQS = [
 ];
 
 export function FAQ() {
-  const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="scroll-mt-24 bg-white py-14 sm:py-20">
+    <section id="faq" className="scroll-mt-28 bg-white py-12 sm:py-20">
       <Container>
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
-          <Reveal className="lg:col-span-5">
-            <div className="lg:sticky lg:top-28">
-              <SectionHeading
-                eyebrow="FAQ"
-                title="সাধারণ জিজ্ঞাসা"
-                subtitle="সবচেয়ে বেশি জিজ্ঞাসিত প্রশ্নগুলোর উত্তর। আরও কিছু জানতে চাইলে WhatsApp করুন।"
-              />
-              <div className="mt-6 rounded-2xl border border-line bg-white p-5 shadow-card">
-                <div className="flex items-center gap-3">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-royal-50 text-royal-700">
-                    <MessageCircleQuestion className="h-5 w-5" />
-                  </span>
-                  <div>
-                    <p className="text-sm font-bold text-ink">আরও প্রশ্ন আছে?</p>
-                    <p className="text-[13px] text-muted">সরাসরি WhatsApp-এ জিজ্ঞাসা করুন।</p>
-                  </div>
-                </div>
-                <Button
-                  href={waLink("আমার একটি প্রশ্ন আছে: ")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="whatsapp"
-                  className="mt-4 w-full"
-                >
-                  <WhatsAppIcon className="h-4 w-4" />
-                  WhatsApp করুন
-                </Button>
-              </div>
-            </div>
-          </Reveal>
-
-          <div className="lg:col-span-7">
-            <div className="space-y-3">
-              {FAQS.map((f, i) => {
-                const isOpen = open === i;
-                return (
-                  <Reveal key={f.q} delay={(i % 4) * 50}>
-                    <div
-                      className={cn(
-                        "overflow-hidden rounded-2xl border bg-white transition-colors",
-                        isOpen ? "border-gold-300 shadow-card" : "border-line"
-                      )}
-                    >
-                      <button
-                        type="button"
-                        onClick={() => setOpen(isOpen ? null : i)}
-                        className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
-                        aria-expanded={isOpen}
-                      >
-                        <span className="text-[15px] font-bold text-ink">{f.q}</span>
-                        <span
-                          className={cn(
-                            "flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-all",
-                            isOpen ? "rotate-45 bg-royal-700 text-white" : "bg-mist text-royal-700"
-                          )}
-                        >
-                          <Plus className="h-4 w-4" />
-                        </span>
-                      </button>
-                      <div
-                        className="grid transition-all duration-300 ease-out"
-                        style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
-                      >
-                        <div className="overflow-hidden">
-                          <p className="px-5 pb-4 text-[14px] leading-relaxed text-muted">{f.a}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </Reveal>
-                );
-              })}
-            </div>
+        <div className="grid gap-8 lg:grid-cols-[1fr_1.6fr] lg:gap-16">
+          <div>
+            <p className="kicker">GOOD QUESTIONS, CLEAR ANSWERS</p>
+            <h2 className="mt-3 text-3xl font-extrabold text-royal-900">
+              কিছু সাধারণ প্রশ্ন।
+            </h2>
+            <p className="mt-4 text-sm leading-7 text-muted">
+              অর্ডার, ডিজাইন বা ন্যূনতম পরিমাণ নিয়ে প্রশ্ন? উত্তর দেখে নিন।
+            </p>
+            <a
+              href={waLink("প্যাকেজিং নিয়ে আমার একটি প্রশ্ন আছে: ")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex min-h-11 items-center text-sm font-bold text-royal-900 underline underline-offset-4"
+            >
+              অন্য প্রশ্ন থাকলে WhatsApp করুন
+            </a>
+          </div>
+          <div className="border-t border-line">
+            {FAQS.map((f, i) => (
+              <details
+                key={f.q}
+                className="faq-item border-b border-line"
+                open={i === 0}
+              >
+                <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-5 text-[15px] font-bold leading-7 text-royal-900">
+                  {f.q}
+                  <Plus size={18} className="shrink-0 text-muted" />
+                </summary>
+                <p className="pb-5 pr-6 text-sm leading-7 text-muted">{f.a}</p>
+              </details>
+            ))}
           </div>
         </div>
       </Container>

@@ -1,5 +1,5 @@
 import { cn } from "@/utils/cn";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.webp";
 
 export function LogoMark({ className }: { className?: string }) {
   return (

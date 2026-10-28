@@ -2,35 +2,21 @@
 <html lang="bn">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#142a5e" />
-    <title>Smart Printing Packaging | Printing & Packaging Solutions in Dhaka</title>
-    <meta
-      name="description"
-      content="Smart Printing Packaging provides printing and packaging solutions including LD packet, foil packet, packaging cylinder, sticker, box, offset printing, digital printing, paper products and more in Dhaka, Bangladesh."
-    />
-    <meta
-      name="keywords"
-      content="Printing & Packaging Bangladesh, Packaging Company Dhaka, LD Packet, Foil Packet, Packaging Cylinder, Sticker Printing, Offset Printing, Digital Printing, Custom Packaging, Packaging Design, Printed Packaging, Custom Box"
-    />
-    <meta name="author" content="Smart Printing Packaging" />
-    <meta name="robots" content="index, follow" />
-
-    <!-- Open Graph -->
+    <!-- seo:start -->
+    <title>বাংলাদেশে প্যাকেজিং ও প্রিন্টিং | Smart Printing Packaging</title>
+    <meta name="description" content="বাংলাদেশে কাস্টম LD প্যাকেট, ফয়েল প্যাকেট, জিপার পাউচ, বক্স ও স্টিকার প্রিন্টিং। Smart Printing Packaging, আরমানীটোলা, ঢাকায় প্যাকেজিংয়ের কোটেশন নিন।" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://smartpackagingbd.com/" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Smart Printing Packaging | Printing & Packaging Solutions in Dhaka" />
-    <meta
-      property="og:description"
-      content="Custom Packaging, Flexible Packaging, Offset & Digital Printing এবং অন্যান্য Printing Solution — আপনার প্রয়োজন অনুযায়ী।"
-    />
+    <meta property="og:title" content="বাংলাদেশে প্যাকেজিং ও প্রিন্টিং | Smart Printing Packaging" />
+    <meta property="og:description" content="কাস্টম প্রিন্টেড প্যাকেট, বক্স ও স্টিকার — ঢাকার Smart Printing Packaging-এ কোটেশন নিন।" />
     <meta property="og:locale" content="bn_BD" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <meta property="og:url" content="https://smartpackagingbd.com/" />
+    <meta property="og:image" content="https://smartpackagingbd.com/social-preview.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- seo:end -->
 
     <link
       rel="icon"
@@ -50,51 +36,30 @@
       fbq('init', '1187122277827360');
       fbq('track', 'PageView');
     </script>
-    <noscript><img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=1187122277827360&ev=PageView&noscript=1"
-    /></noscript>
     <!-- End Meta Pixel Code -->
 
   </head>
   <body>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1187122277827360&ev=PageView&noscript=1"
+    /></noscript>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Meta Pixel Event Tracking for Lead & Contact -->
+    <!-- Contact clicks are not confirmed orders or leads. No form values are sent. -->
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // সব ক্লিক লিসেন করবো
-        document.addEventListener('click', function(e) {
-          // বাটন বা লিঙ্ক চেক করবো
-          var btn = e.target.closest('button, a');
-          if (!btn) return;
-          
-          var text = (btn.innerText || btn.textContent || '').trim();
-          var href = (btn.getAttribute('href') || '').toLowerCase();
-          
-          // Lead Event: যদি "কোটেশন নিন" লেখা থাকে
-          if (text.includes('কোটেশন নিন') || text.includes('কোটেশন')) {
-            fbq('track', 'Lead', {
-              content_name: 'Packaging Quotation Request',
-              content_category: 'Lead Generation',
-              value: 0.00,
-              currency: 'BDT'
-            });
-            console.log('✅ Meta Pixel: Lead Event Tracked');
-          }
-          
-          // Contact Event: যদি WhatsApp বাটন বা লিঙ্ক হয়
-          if (text.includes('WhatsApp') || text.includes('ওয়াটসঅ্যাপ') || href.includes('whatsapp') || href.includes('wa.me')) {
-            fbq('track', 'Contact', {
-              method: 'WhatsApp',
-              content_category: 'Customer Contact'
-            });
-            console.log('✅ Meta Pixel: Contact Event Tracked');
-          }
-        });
+      document.addEventListener('click', function(event) {
+        if (!(event.target instanceof Element)) return;
+        var link = event.target.closest('a[href]');
+        if (!link || typeof window.fbq !== 'function') return;
+        var destination;
+        try { destination = new URL(link.href); } catch (_) { return; }
+        if (destination.hostname === 'wa.me') {
+          window.fbq('track', 'Contact', { method: 'WhatsApp', content_category: 'Contact Click' });
+        }
       });
     </script>
-    <!-- End Meta Pixel Event Tracking -->
     
   </body>
 </html>

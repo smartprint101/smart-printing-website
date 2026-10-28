@@ -1,0 +1,12 @@
+# Apache / cPanel static hosting. Upload the complete dist directory.
+# Do not rewrite unknown URLs (or robots/sitemap) to the homepage.
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  RewriteRule ^ - [R=404,L]
+</IfModule>
