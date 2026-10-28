@@ -6,6 +6,8 @@ export function LogoMark({ className }: { className?: string }) {
     <img
       src={logo}
       alt="Smart Printing Packaging Logo"
+      width={40}
+      height={40}
       className={className}
     />
   );

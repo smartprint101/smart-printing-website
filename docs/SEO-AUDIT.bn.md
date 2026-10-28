@@ -1,5 +1,7 @@
 # SEO ও UX অডিট — Smart Printing Packaging
 
+> ঐতিহাসিক অডিট: নিচের লাইভ পর্যবেক্ষণ ও URL সংখ্যা পরবর্তী সময়ের বর্তমান অবস্থা নয়। সর্বশেষ findings, বাস্তবায়ন ও পরবর্তী করণীয় [Master SEO audit](MASTER-SEO-AUDIT.bn.md)-এ দেখুন।
+
 **পরিদর্শনের তারিখ:** ২৮ অক্টোবর ২০২৬  
 **মূল ওয়েবসাইট:** https://smartpackagingbd.com/  
 **পরিধি:** লাইভ হোমপেজের সম্পূর্ণ প্রাপ্ত কনটেন্ট (৫টি অংশ), robots, sitemap ও একটি service URL; উন্নত সংস্করণের ১৪টি build-generated URL, navigation, WhatsApp links, mobile layout ও interaction।
@@ -35,7 +37,7 @@ Keyword-এর একই শব্দ অসংখ্যবার লিখল�
 | গ্রাহকের প্রয়োজন / সম্ভাব্য query | লক্ষ্য URL |
 |---|---|
 | প্যাকেজিং বাংলাদেশ, packaging and printing Dhaka | `/` |
-| custom LD packet printing Bangladesh, এলডি প্যাকেট প্রিন্টিং | `/services/ld-packet/` |
+| custom LD packet printing Bangladesh, এলডি/পলি প্যাকেট প্রিন্টিং | `/services/ld-packet/` |
 | foil packet printing, ফয়েল পাউচ | `/services/foil-packet/` |
 | ready made packet, zipper pouch Bangladesh | `/services/ready-made/` |
 | box printing Dhaka, কাস্টম প্রিন্টেড বক্স | `/services/custom-box/` |
@@ -43,6 +45,7 @@ Keyword-এর একই শব্দ অসংখ্যবার লিখল�
 | packaging printing cylinder | `/services/cylinder/` |
 | বোতলের শ্রিংক সিল, security shrink seal | `/services/security-poly/` |
 | art paper printing, offset printing | সংশ্লিষ্ট `/services/art-paper/`, `/services/offset/` |
+| নিজের নামে প্যাকেট কীভাবে তৈরি বা পণ্য কীভাবে প্যাকেট করব? | `/guides/own-brand-packet-printing/` |
 | LD বনাম foil: কোনটি ভালো? | `/guides/ld-vs-foil-packet/` |
 | প্যাকেট তৈরির কোটেশন নিতে কী লাগে? | `/guides/packaging-quotation-checklist/` |
 | কম বাজেটে ছোট ব্যবসার প্যাকেজিং | `/guides/small-business-packaging/` |

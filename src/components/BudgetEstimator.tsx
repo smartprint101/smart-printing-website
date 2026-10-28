@@ -209,7 +209,7 @@ export function BudgetEstimator() {
   const isPacket = serviceType !== "cylinder-only";
 
   return (
-    <section id="budget" className="scroll-mt-24 bg-white py-14 sm:py-20">
+    <section id="budget-tool" className="scroll-mt-24 bg-white py-14 sm:py-20">
       <Container>
         <Reveal>
           <SectionHeading

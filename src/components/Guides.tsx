@@ -16,7 +16,7 @@ export function GuideCards() {
         <p className="mt-3 text-sm leading-7 text-muted">
           ম্যাটেরিয়াল, বাজেট ও অর্ডারের প্রস্তুতি—সঠিক সিদ্ধান্তের ছোট্ট গাইড।
         </p>
-        <div className="mt-7 grid gap-4 md:grid-cols-3">
+        <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {GUIDES.map((g, i) => (
             <article
               key={g.slug}

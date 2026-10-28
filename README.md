@@ -1,7 +1,7 @@
 # Smart Printing Packaging
 
 Product-first Bengali printing and packaging website for https://smartpackagingbd.com.
-Built with React, TypeScript and Vite. Production builds export complete HTML for the homepage, ten services and three guides; React hydrates the same content for interactive tools and forms.
+Built with React, TypeScript and Vite. Production builds export complete HTML for the homepage, ten services and five guides; React hydrates the same content for interactive tools and forms. The optional finder and budget calculator load on demand and retain a direct WhatsApp fallback.
 
 ## Develop and preview
 
@@ -47,22 +47,25 @@ After deployment, from an environment with access to the live domain:
 npm run check:live-seo
 ```
 
-This checks the live site's robots/XML responses, all expected canonical URLs, WhatsApp links and true 404 handling. It does not submit to Google or measure rankings.
+This checks robots/XML, favicon and logo files, expected canonical URLs, unique metadata, JSON-LD syntax, indexability headers, WhatsApp links and true 404 handling. Against the production origin it also checks HTTP/www and slash redirects. JSON syntax checks are not Google's Rich Results Test; this script does not submit to Google or measure rankings.
 
 ## Edit content
 
 - `src/lib/site.ts`: company details, office phone, shared WhatsApp number, address and domain.
 - `src/data/services.ts`: service facts, sample images and quote form values.
-- `src/lib/seo.ts`: page titles, descriptions and factual structured data.
+- `src/lib/seo.ts`: page titles, descriptions and structured data; the existing schema address and hours are maintained separately from the UI config and must match owner-verified details.
 - `src/data/guides.ts`: packaging guides.
 - `src/components/Services.tsx`: storefront labels and custom service order.
 - `scripts/optimize-images.mjs`: regenerate WebP variants and the social card with `npm run optimize:images` after changing original images.
+- `scripts/generate-brand-assets.mjs`: after changing `src/assets/logo.png`, run `npm run generate:brand-assets` and commit the resulting stable favicon, Apple icon and organization logo files in `public/`.
 
 All WhatsApp enquiries use **01660191039**. The office telephone remains separate. Prices, minimum orders and timelines must be confirmed by the business before publication. Do not add fabricated reviews, ratings, certifications or location pages.
 
-See the Bengali audit and launch instructions:
+See the Bengali audit, keyword mapping and launch instructions:
 
-- [SEO and UX audit](docs/SEO-AUDIT.bn.md)
+- [Master SEO audit, implementation and 90-day plan](docs/MASTER-SEO-AUDIT.bn.md)
+- [Keyword-to-URL mapping spreadsheet](docs/KEYWORD-MAP.bn.csv)
+- [Earlier SEO and UX audit](docs/SEO-AUDIT.bn.md)
 - [Deployment and Google launch checklist](docs/SEO-LAUNCH.bn.md)
 
 Merging code is not the same as deploying it. Search Console verification, sitemap submission and Google Business Profile verification require the owner's access. No ranking position is guaranteed.

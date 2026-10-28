@@ -242,6 +242,60 @@ test("finder and calculator complete their customer journeys", async ({
   ).toBe(true);
 });
 
+test("optional tools load on demand, preserve links and show cautious guidance", async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== "mobile", "One viewport covers chunk loading and anchor navigation");
+  const requested: string[] = [];
+  page.on("request", (request) => requested.push(request.url()));
+  await page.goto("/", { waitUntil: "networkidle" });
+  expect(requested.some((url) => /ProductFinder-.*\.js/.test(url))).toBe(false);
+  expect(requested.some((url) => /BudgetEstimator-.*\.js/.test(url))).toBe(false);
+
+  await page.locator("#product-finder summary").click();
+  const finder = page.locator("#product-finder");
+  await expect(page.locator("#product-finder-tool")).toBeVisible();
+  expect(requested.some((url) => /ProductFinder-.*\.js/.test(url))).toBe(true);
+  expect(requested.some((url) => /BudgetEstimator-.*\.js/.test(url))).toBe(false);
+  await finder.getByRole("button", { name: /শুরু করুন/ }).click();
+  await finder.getByRole("button", { name: /শুকনো খাবার/ }).click();
+  await finder.getByRole("button", { name: /প্রিমিয়াম/ }).click();
+  await finder.getByRole("button", { name: /হ্যাঁ, লোগো\/নাম প্রিন্ট করতে চাই/ }).click();
+  await expect(finder).toContainText("খাদ্য-সংস্পর্শের প্রমাণ");
+  await expect(finder).not.toContainText("Moisture থেকে রক্ষা করে");
+  await finder.getByRole("link", { name: /Cost Calculator দেখুন/ }).click();
+  await expect(page.locator("#budget")).toHaveAttribute("open", "");
+  await expect(page.locator("#budget-tool")).toBeVisible();
+  expect(requested.some((url) => /BudgetEstimator-.*\.js/.test(url))).toBe(true);
+
+  await page.goto("/#budget", { waitUntil: "networkidle" });
+  await page.reload({ waitUntil: "networkidle" });
+  await expect(page.locator("#budget")).toHaveAttribute("open", "");
+  await expect(page.locator("#budget-tool")).toBeVisible();
+  await page.goto("/#product-finder", { waitUntil: "networkidle" });
+  await page.reload({ waitUntil: "networkidle" });
+  await expect(page.locator("#product-finder")).toHaveAttribute("open", "");
+  await expect(page.locator("#product-finder-tool")).toBeVisible();
+  await finder.getByRole("button", { name: "শুরু করুন", exact: true }).click();
+  await finder.getByRole("button", { name: /ঔষধ/ }).click();
+  await finder.getByRole("button", { name: /প্রিমিয়াম/ }).click();
+  await finder.getByRole("button", { name: /হ্যাঁ, লোগো\/নাম প্রিন্ট করতে চাই/ }).click();
+  await expect(finder).toContainText("কোনো অনুমোদন বা সনদের দাবি নয়");
+  await expect(finder).not.toContainText("DGDA Approved Box");
+});
+
+test("a failed optional tool does not remove the storefront or contact fallback", async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== "mobile", "One viewport covers failed tool chunks");
+  await page.route("**/ProductFinder-*.js", (route) => route.abort());
+  await page.goto("/", { waitUntil: "networkidle" });
+  await page.locator("#product-finder summary").click();
+  await expect(page.locator("#product-finder")).toContainText("টুলটি লোড করা যায়নি");
+  await expect(page.locator("#product-finder a[href^='https://wa.me/']")).toBeVisible();
+  await expect(page.locator("#products")).toBeVisible();
+});
+
 test("content and FAQ remain usable without JavaScript", async ({
   browser,
   baseURL,
@@ -262,6 +316,8 @@ test("content and FAQ remain usable without JavaScript", async ({
       "/",
       "/services/foil-packet/",
       "/guides/packaging-quotation-checklist/",
+      "/guides/own-brand-packet-printing/",
+      "/guides/food-packaging-printing/",
     ]) {
       await page.goto(`${baseURL}${path}`);
       await expect(page.locator("h1")).toBeVisible();
@@ -271,6 +327,10 @@ test("content and FAQ remain usable without JavaScript", async ({
     const question = page.locator("#faq details").nth(1);
     await question.locator("summary").click();
     await expect(question.locator("p")).toBeVisible();
+    const calculator = page.locator("#budget");
+    await calculator.locator("summary").click();
+    await expect(calculator).toContainText("JavaScript প্রয়োজন");
+    await expect(calculator.locator("a[href^='https://wa.me/']")).toBeVisible();
   } finally {
     await context.close();
   }
@@ -288,4 +348,46 @@ test("unknown URLs return HTTP 404 and the exported error page is noindex", asyn
     "noindex, follow",
   );
   await expect(page.locator("h1")).toHaveText("পেজটি পাওয়া যায়নি");
+});
+
+test("search favicon and organization logo are served as real PNG files", async ({
+  request,
+  page,
+}, testInfo) => {
+  test.skip(
+    testInfo.project.name !== "mobile",
+    "One viewport covers static image responses",
+  );
+  await page.goto("/");
+  await expect(page.locator('link[rel="icon"]')).toHaveAttribute(
+    "href",
+    "/favicon.png",
+  );
+  for (const path of [
+    "/favicon.png",
+    "/apple-touch-icon.png",
+    "/brand-logo.png",
+  ]) {
+    const response = await request.get(path);
+    expect(response.status(), path).toBe(200);
+    expect(response.headers()["content-type"], path).toMatch(/image\/png/i);
+    const data = await response.body();
+    expect(
+      data.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])),
+      path,
+    ).toBe(true);
+    expect(data.readUInt32BE(16), path).toBeGreaterThan(48);
+    expect(data.readUInt32BE(16), path).toBe(data.readUInt32BE(20));
+  }
+  const fallback = await request.get("/favicon.ico");
+  expect(fallback.status()).toBe(200);
+  expect(
+    (await fallback.body()).subarray(0, 4).equals(Buffer.from([0, 0, 1, 0])),
+  ).toBe(true);
+
+  await page.goto("/guides/own-brand-packet-printing/");
+  await expect(page.locator("h1")).toContainText("নিজের নামে প্যাকেট");
+  await expect(page.locator("#guide-section-7 h2")).toContainText(
+    "পণ্য কীভাবে প্যাকেট করবেন",
+  );
 });

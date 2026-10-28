@@ -14,19 +14,19 @@ export const SERVICE_SEO: Record<
       "কাস্টম LD ও ফয়েল প্যাকেট প্রিন্টিংয়ের জন্য সিলিন্ডার তৈরি। সাইজ, ডিজাইন ও কালার অনুযায়ী কোটেশন নিন Smart Printing Packaging, ঢাকা থেকে।",
   },
   "ld-packet": {
-    heading: "বাংলাদেশে কাস্টম প্রিন্টেড LD প্যাকেট",
+    heading: "পলি প্যাকেট প্রিন্টিং ও কাস্টম LD প্যাকেট",
     description:
-      "নিজের ব্র্যান্ডের LD প্যাকেট প্রিন্টিং করান ঢাকায়। ম্যাটেরিয়াল, সাইজ, কালার ও ন্যূনতম অর্ডার সম্পর্কে জানুন এবং কাস্টম প্যাকেজিংয়ের কোটেশন নিন।",
+      "ঢাকায় নিজের নাম, লোগো ও ডিজাইনে LD পলি প্যাকেট প্রিন্টিং। সাইজ, রঙ ও পরিমাণ জানিয়ে Smart Printing Packaging থেকে কাস্টম প্যাকেটের কোটেশন নিন।",
   },
   "foil-packet": {
-    heading: "বাংলাদেশে ফয়েল প্যাকেট ও পাউচ প্রিন্টিং",
+    heading: "ফয়েল প্যাকেট প্রিন্টিং ও কাস্টম পাউচ",
     description:
-      "খাদ্যপণ্য, মসলা ও অন্যান্য পণ্যের কাস্টম ফয়েল প্যাকেট প্রিন্টিং। সাইজ, ম্যাটেরিয়াল ও পরিমাণ জানিয়ে Smart Printing Packaging, ঢাকায় যোগাযোগ করুন।",
+      "নিজের ব্র্যান্ডের ফয়েল প্যাকেট ও পাউচ প্রিন্টিং। পণ্য, সাইজ, ম্যাটেরিয়াল ও পরিমাণ জানিয়ে Smart Printing Packaging, ঢাকায় কোটেশন নিন।",
   },
   sticker: {
-    heading: "ঢাকায় কাস্টম স্টিকার ও লেবেল প্রিন্টিং",
+    heading: "স্টিকার ও লেবেল প্রিন্টিং, ঢাকা",
     description:
-      "পণ্যের বোতল, জার ও প্যাকেজিংয়ের জন্য কাস্টম স্টিকার ও লেবেল প্রিন্টিং। সাইজ, ডিজাইন ও পরিমাণ অনুযায়ী ঢাকার Smart Printing Packaging থেকে কোটেশন নিন।",
+      "নিজের নাম ও লোগোসহ প্যাকেট, বক্স, বোতল ও জারের জন্য কাস্টম স্টিকার ও লেবেল প্রিন্টিং। সাইজ ও পরিমাণ জানিয়ে ঢাকায় কোটেশন নিন।",
   },
   "art-paper": {
     heading: "ঢাকায় আর্ট পেপার প্রিন্টিং",
@@ -34,9 +34,9 @@ export const SERVICE_SEO: Record<
       "ব্র্যান্ডের লেবেল ও প্রিন্টিংয়ের জন্য আর্ট পেপার প্রিন্টিং সেবা। কাগজ, সাইজ ও ফিনিশিং বেছে নিতে ঢাকার Smart Printing Packaging-এর সঙ্গে কথা বলুন।",
   },
   "custom-box": {
-    heading: "বাংলাদেশে কাস্টম প্রিন্টেড প্যাকেজিং বক্স",
+    heading: "প্যাকেজিং বক্স প্রিন্টিং ও কাস্টম বক্স",
     description:
-      "নিজের ব্র্যান্ডের জন্য কাস্টম বক্স প্রিন্টিং। পণ্যের সাইজ, বক্সের ধরন, ডিজাইন ও অর্ডারের পরিমাণ জানিয়ে Smart Printing Packaging, ঢাকায় কোটেশন নিন।",
+      "নিজের নাম ও লোগোসহ পণ্যের জন্য কাস্টম প্যাকেজিং বক্স প্রিন্টিং। বক্সের সাইজ, ডিজাইন ও পরিমাণ জানিয়ে Smart Printing Packaging, ঢাকায় কোটেশন নিন।",
   },
   "ready-made": {
     heading: "বাংলাদেশে রেডিমেড প্যাকেট ও জিপার পাউচ",
@@ -78,7 +78,7 @@ export function pageSEO(path: string) {
     : guide
       ? `${guide.title} | ${COMPANY.name}`
       : known
-        ? `বাংলাদেশে প্যাকেজিং ও প্রিন্টিং | ${COMPANY.name}`
+        ? `প্যাকেজিং: প্যাকেট, বক্স ও স্টিকার প্রিন্টিং | ${COMPANY.name}`
         : `পেজটি পাওয়া যায়নি | ${COMPANY.name}`;
   return {
     title,
@@ -86,7 +86,7 @@ export function pageSEO(path: string) {
       ? SERVICE_SEO[service.id].description
       : guide
         ? guide.description
-        : "বাংলাদেশে কাস্টম LD প্যাকেট, ফয়েল প্যাকেট, জিপার পাউচ, বক্স ও স্টিকার প্রিন্টিং। Smart Printing Packaging, আরমানীটোলা, ঢাকায় প্যাকেজিংয়ের কোটেশন নিন।",
+        : "নিজের নামে পলি ও ফয়েল প্যাকেট, প্যাকেজিং বক্স, স্টিকার ও লেবেল প্রিন্টিং। ঢাকার Smart Printing Packaging থেকে কাস্টম প্যাকেজিংয়ের কোটেশন নিন।",
     canonical: `${SITE_URL}${normalizePath(path)}`,
     known,
     service,
@@ -94,7 +94,7 @@ export function pageSEO(path: string) {
   };
 }
 
-// Only verified site information: no invented reviews, ratings, geo coordinates or prices.
+// Existing site details require owner verification; do not invent reviews, ratings or prices.
 export function structuredData(path: string) {
   const page = pageSEO(path);
   const businessId = `${SITE_URL}/#business`;
@@ -104,6 +104,7 @@ export function structuredData(path: string) {
       "@id": businessId,
       name: COMPANY.name,
       url: `${SITE_URL}/`,
+      logo: `${SITE_URL}/brand-logo.png`,
       telephone: CONTACT.phoneDial,
       email: CONTACT.email,
       contactPoint: [
@@ -112,7 +113,6 @@ export function structuredData(path: string) {
           contactType: "sales",
           telephone: `+${CONTACT.whatsappNumber}`,
           url: `https://wa.me/${CONTACT.whatsappNumber}`,
-          availableLanguage: ["Bengali", "English"],
         },
       ],
       address: {

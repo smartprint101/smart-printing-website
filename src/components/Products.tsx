@@ -45,15 +45,16 @@ export function Products() {
                 PACKAGING FOR YOUR NEXT BIG IDEA
               </p>
               <h1 className="mt-4 max-w-3xl text-[29px] font-extrabold leading-[1.45] text-royal-900 sm:text-[43px]">
-                আপনার ব্র্যান্ডের জন্য
+                নিজের নামে প্যাকেট,
                 <br />
-                <span className="text-[#996034]">সঠিক প্যাকেজিং।</span>
+                <span className="text-[#996034]">বক্স ও লেবেল প্রিন্টিং।</span>
               </h1>
             </div>
             <div className="pb-1">
               <p className="text-sm leading-7 text-muted sm:text-base">
-                বাংলাদেশে রেডিমেড প্যাকেট বেছে নিন, অথবা নিজের লোগো ও ডিজাইনে
-                কাস্টম প্যাকেজিং তৈরি করুন।
+                পলি ও ফয়েল প্যাকেট, প্যাকেজিং বক্স, স্টিকার ও লেবেল প্রিন্টিং।
+                বাংলাদেশে নিজের লোগো ও ডিজাইনে কাস্টম প্যাকেজিং তৈরি করুন,
+                অথবা রেডিমেড প্যাকেট বেছে নিন।
               </p>
               <a
                 href="#services"

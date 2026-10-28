@@ -9,6 +9,14 @@ import { SERVICE_SEO, servicePath } from "@/lib/seo";
 import { ADDRESS, CONTACT, waLink, waLinkPacket } from "@/lib/site";
 import { Button, Container, WhatsAppIcon } from "./ui";
 
+const brandedPackagingServices = new Set([
+  "ld-packet",
+  "foil-packet",
+  "custom-box",
+  "sticker",
+  "ready-made",
+]);
+
 export function ServiceDirectory() {
   return (
     <section id="packaging-guide" className="bg-white py-14 sm:py-20">
@@ -149,7 +157,7 @@ export function ServicePage({ service: s }: { service: Service }) {
                   </p>
                 </section>
               )}
-              <InfoList title="কোন পণ্যের জন্য উপযোগী?" items={s.suitableFor} />
+              <InfoList title="কোন পণ্যের জন্য আলোচনা করা যায়?" items={s.suitableFor} />
               <InfoList title="সুবিধা ও বৈশিষ্ট্য" items={s.benefits} />
               <InfoList title="সেবার বিস্তারিত" items={s.bullets} />
               <InfoList title="এই সেবায় যা আছে" items={s.gridItems} />
@@ -231,12 +239,33 @@ export function ServicePage({ service: s }: { service: Service }) {
                   </li>
                 </ol>
                 <p className="mt-4 text-sm leading-relaxed text-muted">
-                  এই পেজের মূল্য ধারণা চূড়ান্ত কোটেশন নয়। ম্যাটেরিয়াল, পরিমাণ,
-                  ডিজাইন ও বাজারদর অনুযায়ী দাম পরিবর্তিত হতে পারে।
+                  মূল্য, স্টক, minimum order, ফিনিশিং ও কাজের সময় অর্ডারের আগে
+                  নিশ্চিত করুন। খাদ্য, ওষুধ বা অন্য সংবেদনশীল পণ্যে ব্যবহারের
+                  উপযোগিতা এবং প্রয়োজনীয় পরীক্ষা ও সনদ আলাদাভাবে যাচাই করুন।
                 </p>
               </section>
             </div>
             <aside className="space-y-6">
+              {brandedPackagingServices.has(s.id) && (
+                <a
+                  href="/guides/own-brand-packet-printing/"
+                  className="flex min-h-14 items-center gap-3 rounded-xl border border-line bg-white p-4 text-sm font-bold text-royal-900"
+                >
+                  <BookOpen className="h-5 w-5 shrink-0 text-gold-600" />
+                  নিজের নামে প্যাকেট কীভাবে তৈরি করবেন?
+                  <ArrowUpRight className="h-4 w-4 shrink-0" />
+                </a>
+              )}
+              {brandedPackagingServices.has(s.id) && (
+                <a
+                  href="/guides/food-packaging-printing/"
+                  className="flex min-h-14 items-center gap-3 rounded-xl border border-line bg-white p-4 text-sm font-bold text-royal-900"
+                >
+                  <BookOpen className="h-5 w-5 shrink-0 text-gold-600" />
+                  খাবারের প্যাকেট ও ম্যাটেরিয়াল যাচাইয়ের গাইড
+                  <ArrowUpRight className="h-4 w-4 shrink-0" />
+                </a>
+              )}
               <a
                 href="/guides/packaging-quotation-checklist/"
                 className="flex min-h-14 items-center gap-3 rounded-xl border border-line bg-white p-4 text-sm font-bold text-royal-900"
