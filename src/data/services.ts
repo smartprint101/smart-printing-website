@@ -14,68 +14,75 @@ import {
 
 // ==================== IMAGE IMPORTS ====================
 
-import cylinderAI from "@/assets/services/cylinder.jpg";
-import artPaperImage from "@/assets/services/art-paper.jpg";
+import cylinderAI from "@/assets/services/cylinder.webp";
+import artPaperImage from "@/assets/services/art-paper.webp";
 
 // LD Packet (5 images)
-import ldPacket1 from "@/assets/services2/printed-ld-packet-1.png";
-import ldPacket2 from "@/assets/services2/printed-ld-packet-2.png";
-import ldPacket3 from "@/assets/services2/printed-ld-packet-3.png";
-import ldPacket4 from "@/assets/services2/printed-ld-packet-4.png";
-import ldPacket5 from "@/assets/services2/printed-ld-packet-5.png";
+import ldPacket1 from "@/assets/services2/printed-ld-packet-1.webp";
+import ldPacket2 from "@/assets/services2/printed-ld-packet-2.webp";
+import ldPacket3 from "@/assets/services2/printed-ld-packet-3.webp";
+import ldPacket4 from "@/assets/services2/printed-ld-packet-4.webp";
+import ldPacket5 from "@/assets/services2/printed-ld-packet-5.webp";
 
 // Foil Packet (5 images)
-import foilPacket1 from "@/assets/services2/foil-pouch-1.png";
-import foilPacket2 from "@/assets/services2/foil-pouch-2.png";
-import foilPacket3 from "@/assets/services2/foil-pouch-3.png";
-import foilPacket4 from "@/assets/services2/foil-pouch-4.png";
-import foilPacket5 from "@/assets/services2/foil-pouch-5.png";
+import foilPacket1 from "@/assets/services2/foil-pouch-1.webp";
+import foilPacket2 from "@/assets/services2/foil-pouch-2.webp";
+import foilPacket3 from "@/assets/services2/foil-pouch-3.webp";
+import foilPacket4 from "@/assets/services2/foil-pouch-4.webp";
+import foilPacket5 from "@/assets/services2/foil-pouch-5.webp";
 
 // Sticker (4 images)
-import sticker1 from "@/assets/services2/Sticker1.png";
-import sticker2 from "@/assets/services2/Sticker2.png";
-import sticker3 from "@/assets/services2/Sticker3.png";
-import sticker4 from "@/assets/services2/Sticker4.png";
+import sticker1 from "@/assets/services2/Sticker1.webp";
+import sticker2 from "@/assets/services2/Sticker2.webp";
+import sticker3 from "@/assets/services2/Sticker3.webp";
+import sticker4 from "@/assets/services2/Sticker4.webp";
 
 // Box (4 images)
-import box1 from "@/assets/services2/box1.png";
-import box2 from "@/assets/services2/box2.png";
-import box3 from "@/assets/services2/box3.png";
-import box4 from "@/assets/services2/box4.png";
+import box1 from "@/assets/services2/box1.webp";
+import box2 from "@/assets/services2/box2.webp";
+import box3 from "@/assets/services2/box3.webp";
+import box4 from "@/assets/services2/box4.webp";
 
 // Ready-made Packet (5 images)
-import readymadeFoil from "@/assets/services2/foilradymet.png";
-import readymadeZipper from "@/assets/services2/geperradymet.png";
-import readymadeLd from "@/assets/services2/Ldradymet.png";
-import readymadeShrink from "@/assets/services2/srinkradymet.png";
-import readymadeSquare from "@/assets/services2/suquretradymet.png";
+import readymadeFoil from "@/assets/services2/foilradymet.webp";
+import readymadeZipper from "@/assets/services2/geperradymet.webp";
+import readymadeLd from "@/assets/services2/Ldradymet.webp";
+import readymadeShrink from "@/assets/services2/srinkradymet.webp";
+import readymadeSquare from "@/assets/services2/suquretradymet.webp";
 
 // Security Poly (3 images)
-import security1 from "@/assets/services2/Security1.png";
-import security2 from "@/assets/services2/Security2.png";
-import security3 from "@/assets/services2/Security3.png";
+import security1 from "@/assets/services2/Security1.webp";
+import security2 from "@/assets/services2/Security2.webp";
+import security3 from "@/assets/services2/Security3.webp";
 
 // Offset
-import offsetImage from "@/assets/services2/offset.jpg";
+import offsetImage from "@/assets/services2/offset.webp";
 
 // ==================== SERVICE IMAGES (Array for slideshow) ====================
 
 export const SERVICE_IMAGES: Record<string, string[]> = {
   cylinder: [cylinderAI],
   "ld-packet": [ldPacket1, ldPacket2, ldPacket3, ldPacket4, ldPacket5],
-  "foil-packet": [foilPacket1, foilPacket2, foilPacket3, foilPacket4, foilPacket5],
+  "foil-packet": [
+    foilPacket1,
+    foilPacket2,
+    foilPacket3,
+    foilPacket4,
+    foilPacket5,
+  ],
   sticker: [sticker1, sticker2, sticker3, sticker4],
   "art-paper": [artPaperImage],
   "custom-box": [box1, box2, box3, box4],
-  "ready-made": [readymadeFoil, readymadeZipper, readymadeLd, readymadeShrink, readymadeSquare],
+  "ready-made": [
+    readymadeFoil,
+    readymadeZipper,
+    readymadeLd,
+    readymadeShrink,
+    readymadeSquare,
+  ],
   "security-poly": [security1, security2, security3],
   offset: [offsetImage],
-  other: [
-    "https://images.pexels.com/photos/6169056/pexels-photo-6169056.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-    "https://images.pexels.com/photos/4498138/pexels-photo-4498138.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-    "https://images.pexels.com/photos/6169668/pexels-photo-6169668.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-    "https://images.pexels.com/photos/5945633/pexels-photo-5945633.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  ],
+  other: [offsetImage, artPaperImage, sticker1, box1],
 };
 
 export const PACKET_SERVICE_IDS = new Set([
@@ -225,7 +232,7 @@ export const SERVICES: Service[] = [
       "৪০-১২০ মাইক্রন পর্যন্ত thickness পাওয়া যায়",
       "২-৮ কালার পর্যন্ত প্রিন্ট করা যায়",
       "Side seal ও Bottom seal দুটোই সম্ভব",
-      "Food grade ম্যাটেরিয়াল ব্যবহার করা হয়",
+      "খাদ্যপণ্যের জন্য উপযোগী ম্যাটেরিয়াল ও প্রয়োজনীয় সনদ অর্ডারের আগে নিশ্চিত করুন",
     ],
     suitableFor: [
       "মুদিপণ্য (চাল, ডাল, আটা, চিনি)",
@@ -279,11 +286,11 @@ export const SERVICES: Service[] = [
     shortSummary:
       "চকচকে মেটালিক ফয়েল পাউচ — আলো/আর্দ্রতা প্রতিরোধ ও প্রিমিয়াম ব্র্যান্ডিং লুকের জন্য আদর্শ।",
     whatIsIt:
-      "Foil Packet হলো একাধিক লেয়ারের ল্যামিনেটেড প্যাকেজিং — যেখানে PET, Aluminum Foil বা Metallized film এবং PE/CPP layer একসাথে যুক্ত থাকে। এই স্ট্রাকচার প্রোডাক্টকে বাইরের আলো, বাতাস ও আর্দ্রতা থেকে সম্পূর্ণ সুরক্ষা দেয়।",
+      "Foil Packet হলো একাধিক লেয়ারের ল্যামিনেটেড প্যাকেজিং — যেখানে PET, Aluminum Foil বা Metallized film এবং PE/CPP layer একসাথে যুক্ত থাকে। এই স্ট্রাকচার প্রোডাক্টকে বাইরের আলো, বাতাস ও আর্দ্রতার প্রভাব কমাতে সাহায্য করে; কার্যকারিতা নির্ভর করে layer structure ও sealing-এর ওপর।",
     benefits: [
       "প্রিমিয়াম মেটালিক শাইনি লুক — শেলফে চোখে পড়ে",
       "আলো, আর্দ্রতা ও অক্সিজেন বাধা (barrier)",
-      "প্রোডাক্টের shelf life বাড়ায়",
+      "পণ্যের উপযোগী structure বেছে নিলে সংরক্ষণে সহায়ক হতে পারে",
       "খাবারের স্বাদ ও গন্ধ অক্ষুণ্ণ রাখে",
       "Zipper, Euro hole, Window অপশন উপলব্ধ",
       "Stand-up pouch বা flat pouch দুটোই সম্ভব",
@@ -323,7 +330,8 @@ export const SERVICES: Service[] = [
     },
     altCta: {
       text: "বাজেট কম? বিকল্প জানুন",
-      message: "আমার বাজেট কম। অল্প খরচে Foil Packet-এর বিকল্প Solution সম্পর্কে জানান:",
+      message:
+        "আমার বাজেট কম। অল্প খরচে Foil Packet-এর বিকল্প Solution সম্পর্কে জানান:",
     },
   },
 
@@ -471,7 +479,14 @@ export const SERVICES: Service[] = [
       "গার্মেন্টস ও অ্যাকসেসরিজ",
       "মেডিসিন ও হেলথ প্রোডাক্ট",
     ],
-    gridItems: ["খাদ্য", "কসমেটিক্স", "Retail", "Gift", "FMCG", "Product packaging"],
+    gridItems: [
+      "খাদ্য",
+      "কসমেটিক্স",
+      "Retail",
+      "Gift",
+      "FMCG",
+      "Product packaging",
+    ],
     note: "মূল্য Size, Board GSM, Printing color, Finishing ও Quantity অনুযায়ী নির্ধারিত হবে। WhatsApp-এ মাপ ও ডিজাইন পাঠিয়ে সঠিক quote নিন।",
     detailExtra: [
       "Board: 250-400 GSM Duplex / Swedish board",
@@ -570,11 +585,11 @@ export const SERVICES: Service[] = [
       },
     ],
     detailExtra: [
-      "সব প্রোডাক্ট স্টকে থাকে — দ্রুত delivery",
+      "অর্ডারের আগে প্রোডাক্টের স্টক ও ডেলিভারির সময় নিশ্চিত করুন",
       "চাহিদা মতো যেকোনো পরিমাণ (১ কেজি থেকে ১০০+ কেজি)",
       "প্লেইন (সাদা) বা সাধারণ প্রিন্টেড অপশন",
-      "ঢাকার ভেতরে ১-২ দিনে ডেলিভারি",
-      "ঢাকার বাইরে কুরিয়ারে ২-৪ দিন",
+      "ঢাকার ভেতরে সম্ভাব্য ডেলিভারি সময় অর্ডারের আগে নিশ্চিত করুন",
+      "ঢাকার বাইরে কুরিয়ার ও সম্ভাব্য সময় আলোচনা করে নিশ্চিত করুন",
     ],
     note: "উপরের দাম আনুমানিক — সাইজ ও পরিমাণ অনুযায়ী কম-বেশি হতে পারে। প্রতিটি প্রোডাক্টের নিচের 'অর্ডার করুন' বাটনে ক্লিক করে WhatsApp-এ যোগাযোগ করুন।",
     cta: {
@@ -599,12 +614,12 @@ export const SERVICES: Service[] = [
     whatIsIt:
       "Security Poly (Shrink Sleeve / Tamper-Evident Seal) হলো একটি বিশেষ PVC বা PET ফিল্মের তৈরি সিল, যা তাপ দিলে সংকুচিত হয়ে বোতল বা জারের মুখে শক্তভাবে বসে যায়। একবার লাগানো হলে সিল না ভেঙে খোলা যায় না — এটাই এর সিকিউরিটি ফিচার।",
     benefits: [
-      "প্রোডাক্টের authenticity নিশ্চিত করে",
+      "সিল খোলা হয়েছে কি না বোঝাতে সহায়তা করে",
       "Tampering (নকল/খোলা) সহজে বোঝা যায়",
-      "লিক ও পড়ে যাওয়ার ভয় থাকে না",
+      "সঠিক সিলিং ও বোতলের উপযোগিতা অর্ডারের আগে যাচাই করুন",
       "প্রোডাক্টে প্রফেশনাল লুক আনে",
       "কাস্টমারের আস্থা বাড়ায়",
-      "Food, Medicine, Cosmetics-এ অপরিহার্য",
+      "খাদ্য, কসমেটিক্স বা অন্যান্য পণ্যের জন্য উপযোগিতা আগে নিশ্চিত করুন",
     ],
     suitableFor: [
       "পানির বোতল ও কোমল পানীয়",
@@ -769,3 +784,17 @@ export const SERVICES_FOR_FORM = [
   "Carton",
   "Other",
 ];
+
+/** Match detailed service pages to the existing quotation dropdown values. */
+export const SERVICE_FORM_VALUES: Record<string, string> = {
+  "ld-packet": "LD Packet",
+  "foil-packet": "Foil Packet",
+  cylinder: "Cylinder",
+  sticker: "Sticker",
+  "art-paper": "Art Paper",
+  "custom-box": "Custom Box",
+  "ready-made": "Ready-made Packet",
+  "security-poly": "Security Poly",
+  offset: "Offset Printing",
+  other: "Other",
+};

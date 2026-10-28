@@ -490,7 +490,7 @@ declare global {
 
 const trackPixelEvent = (event: string, params?: Record<string, unknown>) => {
   if (typeof window !== "undefined" && window.fbq) {
-    window.fbq("track", event, params);
+    window.fbq("trackCustom", event, params);
   }
 };
 
@@ -507,7 +507,7 @@ export function ProductFinder() {
 
   const handleStart = () => {
     setStep(1);
-    trackPixelEvent("InitiateCheckout", {
+    trackPixelEvent("PacketFinderStart", {
       content_name: "Product Finder Quiz Started",
       content_category: "Quiz",
     });
@@ -520,7 +520,7 @@ export function ProductFinder() {
       setBudget("starter");
       setBrand("sticker");
       setStep(3);
-      trackPixelEvent("CompleteRegistration", {
+      trackPixelEvent("PacketFinderResult", {
         content_name: "Product Finder - Other Selected",
         content_category: "Quiz",
       });
@@ -537,7 +537,7 @@ export function ProductFinder() {
   const handleBrandSelect = (b: BrandType) => {
     setBrand(b);
     setStep(3);
-    trackPixelEvent("CompleteRegistration", {
+    trackPixelEvent("PacketFinderResult", {
       content_name: "Product Finder Quiz Completed",
       content_category: "Quiz",
       product_type: product,
@@ -574,15 +574,8 @@ export function ProductFinder() {
     setBrand(null);
   };
 
-  const handleWhatsAppClick = () => {
-    trackPixelEvent("Contact", {
-      method: "WhatsApp",
-      content_category: "Product Finder Result",
-    });
-  };
-
   const handleQuoteClick = () => {
-    trackPixelEvent("Lead", {
+    trackPixelEvent("PacketFinderQuoteClick", {
       content_name: "Product Finder Quotation",
       content_category: "Lead Generation",
       value: 0.0,
@@ -591,7 +584,7 @@ export function ProductFinder() {
   };
 
   const handleCostCalculatorClick = () => {
-    trackPixelEvent("ViewContent", {
+    trackPixelEvent("PacketFinderCalculatorClick", {
       content_name: "Cost Calculator from Product Finder",
       content_category: "Tool",
     });
@@ -1012,7 +1005,6 @@ export function ProductFinder() {
                       href={waLink(buildWhatsAppMessage())}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={handleWhatsAppClick}
                       variant="whatsapp"
                       size="lg"
                       className="w-full justify-center"

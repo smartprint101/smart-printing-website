@@ -1,268 +1,246 @@
-import { useState, type ReactNode, type FormEvent } from "react";
-import { CheckCircle2, ShieldCheck, Send } from "lucide-react";
-import { Container, SectionHeading, Reveal, WhatsAppIcon } from "./ui";
+import { useState, type FormEvent } from "react";
+import { ArrowUpRight, Check, Send } from "lucide-react";
+import { Container, WhatsAppIcon } from "./ui";
 import { SERVICES_FOR_FORM } from "@/data/services";
-import { waLink } from "@/lib/site";
-import { cn } from "@/utils/cn";
+import { CONTACT, waLink } from "@/lib/site";
 
-function Field({
-  label,
-  required,
-  children,
-  className,
+const inputClass =
+  "min-h-12 w-full rounded-xl border border-line bg-[#fcfcfa] px-4 py-3 text-base text-royal-900 placeholder:text-muted/65 focus:border-royal-600 focus:outline-none focus:ring-2 focus:ring-royal-100";
+const normalizePhone = (value: string) =>
+  value
+    .replace(/[০-৯]/g, (digit) => String("০১২৩৪৫৬৭৮৯".indexOf(digit)))
+    .replace(/[\s()-]/g, "");
+
+export function QuoteForm({
+  initialService = "",
 }: {
-  label: string;
-  required?: boolean;
-  children: ReactNode;
-  className?: string;
+  initialService?: string;
 }) {
-  return (
-    <label className={cn("block", className)}>
-      <span className="text-[13px] font-semibold text-ink">
-        {label} {required && <span className="text-gold-600">*</span>}
-      </span>
-      <div className="mt-1.5">{children}</div>
-    </label>
-  );
-}
-
-const inputCls =
-  "w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-muted/60 focus:border-royal-400 focus:ring-2 focus:ring-royal-100";
-
-export function QuoteForm() {
   const [form, setForm] = useState({
     name: "",
-    company: "",
     mobile: "",
-    service: "",
+    service: SERVICES_FOR_FORM.includes(initialService) ? initialService : "",
     size: "",
     quantity: "",
-    colours: "",
-    design: "না",
     message: "",
   });
-
-  const [sent, setSent] = useState(false);
-
-  const update = (k: keyof typeof form, v: string) =>
-    setForm((p) => ({ ...p, [k]: v }));
-
-  const handleSubmit = (e: FormEvent) => {
+  const [error, setError] = useState("");
+  const [prepared, setPrepared] = useState("");
+  const update = (key: keyof typeof form, value: string) => {
+    setForm((p) => ({ ...p, [key]: value }));
+    setPrepared("");
+    setError("");
+  };
+  function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!form.name || !form.mobile || !form.service) return;
-
-    const msg = [
-      "নতুন কোটেশন অনুরোধ:",
-      `নাম: ${form.name}`,
-      form.company && `কোম্পানি: ${form.company}`,
-      `মোবাইল: ${form.mobile}`,
-      `সার্ভিস: ${form.service}`,
-      form.size && `Product Size: ${form.size}`,
-      form.quantity && `Quantity: ${form.quantity}`,
-      form.colours && `Number of Colours: ${form.colours}`,
-      `Design আছে কি?: ${form.design}`,
-      form.message && `বার্তা: ${form.message}`,
-      "",
-      "আপনার তৈরি ডিজাইন থাকলে WhatsApp-এ যুক্ত করে পাঠিয়ে দিন।",
+    const mobile = normalizePhone(form.mobile);
+    if (!form.name.trim()) {
+      setError("আপনার নাম লিখুন।");
+      return;
+    }
+    if (!/^(?:\+?88)?01[3-9]\d{8}$/.test(mobile)) {
+      setError("সঠিক বাংলাদেশি মোবাইল নম্বর দিন, যেমন 01660191039।");
+      return;
+    }
+    const message = [
+      "প্যাকেজিং কোটেশন অনুরোধ",
+      `নাম: ${form.name.trim()}`,
+      `মোবাইল: ${mobile}`,
+      `সেবা: ${form.service}`,
+      form.size.trim() && `সাইজ: ${form.size.trim()}`,
+      form.quantity.trim() && `পরিমাণ: ${form.quantity.trim()}`,
+      form.message.trim() && `বিস্তারিত: ${form.message.trim()}`,
+      "সাইজ, ম্যাটেরিয়াল, চূড়ান্ত দাম ও ডেলিভারির সময় জানাবেন।",
     ]
       .filter(Boolean)
       .join("\n");
-
-    window.open(waLink(msg), "_blank", "noopener,noreferrer");
-    setSent(true);
-  };
-
+    setError("");
+    setPrepared(message);
+    window.fbq?.("trackCustom", "QuotePrepared", { service: form.service });
+    window.open(waLink(message), "_blank", "noopener,noreferrer");
+  }
   return (
-    <section id="quote" className="scroll-mt-24 bg-mist py-14 sm:py-20">
+    <section id="quote" className="scroll-mt-28 bg-white py-12 sm:py-20">
       <Container>
-        <Reveal>
-          <SectionHeading
-            center
-            eyebrow="কোটেশন নিন"
-            title="আপনার প্রয়োজনীয় তথ্য পাঠান"
-            subtitle="নিচের ফর্মটি পূরণ করুন — Submit করলে তথ্য WhatsApp-এ পাঠানো হবে এবং আমরা দ্রুত আনুমানিক quotation দেব।"
-          />
-        </Reveal>
-
-        <div className="mt-8 grid gap-6 sm:mt-10 lg:grid-cols-5">
-          <Reveal className="lg:col-span-2">
-            <div className="flex h-full flex-col justify-between gap-6 rounded-2xl bg-royal-900 p-7 text-white">
-              <div>
-                <h3 className="text-xl font-bold">কেন কোটেশন নেবেন?</h3>
-                <ul className="mt-4 space-y-3 text-[14px] text-royal-100/85">
-                  {[
-                    "আপনার specification অনুযায়ী আনুমানিক মূল্য।",
-                    "Minimum Order ও Cylinder সম্পর্কে স্পষ্ট ধারণা।",
-                    "বাজেট অনুযায়ী বিকল্প Solution পরামর্শ।",
-                    "Design Support (সংশ্লিষ্ট কাজে)।",
-                  ].map((t) => (
-                    <li key={t} className="flex items-start gap-2.5">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-gold-300" />
-                      <span>{t}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="rounded-xl border border-white/10 bg-white/5 p-4 text-[13px] text-royal-100/80">
-                <p className="flex items-center gap-2 font-semibold text-white">
-                  <ShieldCheck className="h-4 w-4 text-gold-300" />
-                  দ্রুত ও নিরাপদ
-                </p>
-                <p className="mt-1.5">
-                  ফর্মের তথ্য সরাসরি WhatsApp-এ যায়। কোনো অগ্রিম পেমেন্ট নয় — শুধু আলোচনা শুরু করুন।
-                </p>
-              </div>
-            </div>
-          </Reveal>
-
-          <Reveal delay={100} className="lg:col-span-3">
-            {sent ? (
-              <div className="flex h-full flex-col items-center justify-center rounded-2xl border border-line bg-white p-10 text-center shadow-card">
-                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-green-50 text-green-600">
-                  <CheckCircle2 className="h-8 w-8" />
+        <div className="grid gap-8 lg:grid-cols-[1fr_1.3fr] lg:gap-16">
+          <div>
+            <p className="kicker">LET’S MAKE IT HAPPEN</p>
+            <h2 className="mt-3 text-3xl font-extrabold leading-snug text-royal-900 sm:text-4xl">
+              আপনার পরিকল্পনা,
+              <br />
+              আমাদের জানান।
+            </h2>
+            <p className="mt-5 max-w-md text-sm leading-7 text-muted">
+              তিনটি প্রয়োজনীয় তথ্য দিলেই শুরু। সাইজ বা ম্যাটেরিয়াল না জানলেও
+              সমস্যা নেই—আমরা আলোচনা করে বুঝে নেব।
+            </p>
+            <ul className="mt-6 space-y-3 text-sm text-muted">
+              {[
+                "আপনার তথ্য দিয়ে WhatsApp মেসেজ তৈরি হবে",
+                "WhatsApp-এ নিজে Send করে পাঠাবেন",
+                "চূড়ান্ত দাম ও শর্ত বুঝে অর্ডার করবেন",
+              ].map((t) => (
+                <li key={t} className="flex items-start gap-3">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#176b46]" />
+                  {t}
+                </li>
+              ))}
+            </ul>
+            <a
+              href={waLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 flex w-fit items-center gap-3 rounded-2xl bg-[#f0f5ee] p-4 text-[#176b46]"
+            >
+              <WhatsAppIcon className="h-6 w-6" />
+              <span>
+                <span className="block text-xs">
+                  ফর্ম ছাড়াও সরাসরি কথা বলুন
                 </span>
-                <h3 className="mt-5 text-xl font-bold text-ink">
-                  ধন্যবাদ! তথ্য প্রস্তুত হয়েছে
-                </h3>
-                <p className="mt-2 max-w-md text-[15px] text-muted">
-                  WhatsApp উইন্ডো খুলে গেলে <strong>Send</strong> করে আমাদের সাথে তথ্য শেয়ার করুন।
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setSent(false)}
-                  className="mt-5 text-sm font-semibold text-royal-700 underline-offset-4 hover:underline"
+                <span className="mt-1 block text-lg font-extrabold">
+                  {CONTACT.whatsappDisplay}
+                </span>
+              </span>
+              <ArrowUpRight size={20} />
+            </a>
+          </div>
+          <form
+            onSubmit={submit}
+            className="rounded-3xl border border-line bg-white p-5 shadow-card sm:p-8"
+          >
+            <div className="mb-6 flex items-center justify-between border-b border-line pb-4">
+              <h3 className="font-bold text-royal-900">কোটেশনের তথ্য</h3>
+              <span className="text-xs text-muted">* চিহ্নিত তথ্য প্রয়োজন</span>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <label className="space-y-2 text-sm font-semibold text-royal-900">
+                আপনার নাম *
+                <input
+                  name="name"
+                  autoComplete="name"
+                  required
+                  maxLength={100}
+                  value={form.name}
+                  onChange={(e) => update("name", e.target.value)}
+                  placeholder="নাম লিখুন"
+                  className={`${inputClass} mt-2`}
+                />
+              </label>
+              <label className="space-y-2 text-sm font-semibold text-royal-900">
+                মোবাইল নম্বর *
+                <input
+                  name="mobile"
+                  type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
+                  required
+                  maxLength={20}
+                  value={form.mobile}
+                  onChange={(e) => update("mobile", e.target.value)}
+                  aria-describedby={error ? "quote-error" : undefined}
+                  placeholder="01XXXXXXXXX"
+                  className={`${inputClass} mt-2`}
+                />
+              </label>
+              <label className="text-sm font-semibold text-royal-900 sm:col-span-2">
+                কোন সেবাটি প্রয়োজন? *
+                <select
+                  name="service"
+                  required
+                  value={form.service}
+                  onChange={(e) => update("service", e.target.value)}
+                  className={`${inputClass} mt-2`}
                 >
-                  আরেকটি কোটেশন অনুরোধ করুন
-                </button>
-              </div>
-            ) : (
-              <form
-                onSubmit={handleSubmit}
-                className="rounded-2xl border border-line bg-white p-6 shadow-card sm:p-7"
+                  <option value="">একটি সেবা বেছে নিন</option>
+                  {SERVICES_FOR_FORM.map((s) => (
+                    <option key={s}>{s}</option>
+                  ))}
+                  <option>পরামর্শ চাই / নিশ্চিত নই</option>
+                </select>
+              </label>
+              <label className="text-sm font-semibold text-royal-900">
+                সাইজ <span className="font-normal text-muted">(ঐচ্ছিক)</span>
+                <input
+                  name="size"
+                  maxLength={100}
+                  value={form.size}
+                  onChange={(e) => update("size", e.target.value)}
+                  placeholder="যেমন 8 × 12 inch"
+                  className={`${inputClass} mt-2`}
+                />
+              </label>
+              <label className="text-sm font-semibold text-royal-900">
+                পরিমাণ <span className="font-normal text-muted">(ঐচ্ছিক)</span>
+                <input
+                  name="quantity"
+                  maxLength={100}
+                  value={form.quantity}
+                  onChange={(e) => update("quantity", e.target.value)}
+                  placeholder="যেমন 150 KG / 500 pcs"
+                  className={`${inputClass} mt-2`}
+                />
+              </label>
+              <label className="text-sm font-semibold text-royal-900 sm:col-span-2">
+                আর কিছু জানাতে চান?{" "}
+                <span className="font-normal text-muted">(ঐচ্ছিক)</span>
+                <textarea
+                  name="message"
+                  rows={3}
+                  maxLength={1500}
+                  value={form.message}
+                  onChange={(e) => update("message", e.target.value)}
+                  placeholder="পণ্যের ধরন, ডিজাইন বা কোনো প্রশ্ন…"
+                  className={`${inputClass} mt-2 resize-y`}
+                />
+              </label>
+            </div>
+            {error && (
+              <p
+                id="quote-error"
+                role="alert"
+                className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-800"
               >
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Field label="নাম" required>
-                    <input
-                      className={inputCls}
-                      value={form.name}
-                      onChange={(e) => update("name", e.target.value)}
-                      placeholder="আপনার নাম"
-                      required
-                    />
-                  </Field>
-
-                  <Field label="কোম্পানির নাম">
-                    <input
-                      className={inputCls}
-                      value={form.company}
-                      onChange={(e) => update("company", e.target.value)}
-                      placeholder="কোম্পানি / ব্র্যান্ড"
-                    />
-                  </Field>
-
-                  <Field label="মোবাইল নম্বর" required className="sm:col-span-2">
-                    <input
-                      className={inputCls}
-                      value={form.mobile}
-                      onChange={(e) => update("mobile", e.target.value)}
-                      placeholder="01XXXXXXXXX"
-                      inputMode="tel"
-                      required
-                    />
-                  </Field>
-
-                  <Field label="আপনার প্রয়োজনীয় সার্ভিস" required className="sm:col-span-2">
-                    <select
-                      className={cn(inputCls, "appearance-none bg-white")}
-                      value={form.service}
-                      onChange={(e) => update("service", e.target.value)}
-                      required
-                    >
-                      <option value="">সার্ভিস নির্বাচন করুন</option>
-                      {SERVICES_FOR_FORM.map((s) => (
-                        <option key={s} value={s}>
-                          {s}
-                        </option>
-                      ))}
-                    </select>
-                  </Field>
-
-                  <Field label="Product Size">
-                    <input
-                      className={inputCls}
-                      value={form.size}
-                      onChange={(e) => update("size", e.target.value)}
-                      placeholder="যেমন 8 × 12 inch"
-                    />
-                  </Field>
-
-                  <Field label="Quantity">
-                    <input
-                      className={inputCls}
-                      value={form.quantity}
-                      onChange={(e) => update("quantity", e.target.value)}
-                      placeholder="যেমন 150 KG / 500 pcs"
-                    />
-                  </Field>
-
-                  <Field label="Number of Colours">
-                    <input
-                      className={inputCls}
-                      value={form.colours}
-                      onChange={(e) => update("colours", e.target.value)}
-                      placeholder="যেমন 4 Colour"
-                    />
-                  </Field>
-
-                  <Field label="Design আছে কি?" className="sm:col-span-2">
-                    <div className="flex gap-2">
-                      {["হ্যাঁ", "না"].map((opt) => (
-                        <button
-                          key={opt}
-                          type="button"
-                          onClick={() => update("design", opt)}
-                          className={cn(
-                            "flex-1 rounded-xl border px-3 py-2.5 text-sm font-semibold transition-colors",
-                            form.design === opt
-                              ? "border-royal-600 bg-royal-50 text-royal-700"
-                              : "border-line bg-white text-muted hover:border-royal-200"
-                          )}
-                        >
-                          {opt}
-                        </button>
-                      ))}
-                    </div>
-                    <p className="mt-2 text-[12px] text-muted">
-                      আপনার তৈরি ডিজাইন থাকলে WhatsApp-এ যুক্ত করে পাঠিয়ে দিন।
-                    </p>
-                  </Field>
-
-                  <Field label="Additional Message" className="sm:col-span-2">
-                    <textarea
-                      rows={3}
-                      className={cn(inputCls, "resize-none")}
-                      value={form.message}
-                      onChange={(e) => update("message", e.target.value)}
-                      placeholder="অতিরিক্ত তথ্য বা প্রশ্ন লিখুন…"
-                    />
-                  </Field>
-                </div>
-
-                <button
-                  type="submit"
-                  className="mt-6 flex w-full items-center justify-center gap-2.5 rounded-xl bg-gradient-to-b from-[#2bd76a] to-[#20c95e] px-6 py-3.5 text-base font-bold text-white shadow-[0_14px_34px_-12px_rgba(37,211,102,0.6)] transition-transform hover:from-[#2ee07a] hover:to-[#23d363] active:scale-[0.99]"
-                >
-                  <WhatsAppIcon className="h-5 w-5" />
-                  কোটেশনের জন্য পাঠান
-                  <Send className="h-4 w-4" />
-                </button>
-
-                <p className="mt-3 text-center text-[12px] text-muted">
-                  Submit করলে আপনার তথ্য WhatsApp-এ প্রস্তুত হবে — Send করে শেয়ার করুন।
-                </p>
-              </form>
+                {error}
+              </p>
             )}
-          </Reveal>
+            <button
+              type="submit"
+              className="mt-5 flex min-h-13 w-full items-center justify-center gap-2 rounded-xl bg-[#176b46] px-4 py-3 font-bold text-white transition-colors hover:bg-[#105436]"
+            >
+              <Send size={18} />
+              WhatsApp-এ তথ্য প্রস্তুত করুন
+            </button>
+            <p className="mt-3 text-xs leading-6 text-muted">
+              এখানে কোনো পেমেন্ট লাগবে না। সাবমিট করলে তথ্য এই সাইটের সার্ভারে
+              সংরক্ষিত হয় না; WhatsApp-এ Send করলে আপনি তথ্য শেয়ার করবেন।
+            </p>
+            {prepared && (
+              <div
+                role="status"
+                className="mt-4 rounded-xl border border-green-200 bg-green-50 p-4 text-sm leading-7 text-green-900"
+              >
+                <p>
+                  তথ্য প্রস্তুত। WhatsApp-এ <strong>Send</strong> করে পাঠান।
+                  উইন্ডো না খুললে নিচের লিংক ব্যবহার করুন।
+                </p>
+                <a
+                  href={waLink(prepared)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-flex min-h-11 items-center font-bold underline"
+                >
+                  প্রস্তুত মেসেজটি WhatsApp-এ খুলুন
+                  <ArrowUpRight size={16} />
+                </a>
+              </div>
+            )}
+            <noscript>
+              <p className="mt-4 text-sm">
+                ফর্ম ব্যবহারে JavaScript প্রয়োজন। উপরের WhatsApp নম্বরে সরাসরি
+                যোগাযোগ করতে পারেন।
+              </p>
+            </noscript>
+          </form>
         </div>
       </Container>
     </section>

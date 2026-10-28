@@ -1,7 +1,7 @@
 import { Gift, ArrowRight } from "lucide-react";
 import { Container, Reveal, Button, WhatsAppIcon } from "./ui";
 import { waLink } from "@/lib/site";
-import flatlay from "@/assets/materials-flatlay.jpg";
+import flatlay from "@/assets/materials-flatlay.webp";
 
 export function FreeDesign() {
   return (

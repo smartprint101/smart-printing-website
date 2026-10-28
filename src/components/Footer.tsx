@@ -1,127 +1,92 @@
-import { Phone, Mail, MapPin } from "lucide-react";
-import { Container, WhatsAppIcon, FacebookIcon } from "./ui";
+import { ArrowUpRight } from "lucide-react";
+import { Container, WhatsAppIcon } from "./ui";
 import { Logo } from "./Logo";
-import { NAV_LINKS, CONTACT, ADDRESS, waLink } from "@/lib/site";
-
-const SERVICE_LINKS = [
-  "Cylinder",
-  "LD Packet",
-  "Foil Packet",
-  "Sticker",
-  "Art Paper",
-  "Box",
-  "Offset Printing",
-  "Digital Printing",
-  "Packaging Design",
-  "Ready-made Packaging",
-];
+import { CONTACT, waLink } from "@/lib/site";
+import { SERVICES } from "@/data/services";
+import { servicePath } from "@/lib/seo";
+import { SERVICE_LABELS } from "./Services";
+import { GUIDES, guidePath } from "@/data/guides";
 
 export function Footer() {
   return (
-    <footer className="bg-royal-950 text-royal-100/75">
-      <Container className="py-14">
-        <div className="grid gap-10 lg:grid-cols-12">
-          {/* Brand */}
-          <div className="lg:col-span-4">
-            <Logo tone="light" />
-            <p className="mt-4 max-w-xs text-[14px] leading-relaxed">
-              আপনার ব্র্যান্ডের জন্য Printing &amp; Packaging Solution — Custom Packaging, Flexible
-              Packaging, Offset &amp; Digital Printing এবং আরও অনেক কিছু।
+    <footer className="bg-royal-950 pb-24 text-white/70 md:pb-0">
+      <Container>
+        <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr] lg:gap-16 lg:py-16">
+          <div>
+            <a href="/" aria-label="Smart Printing Packaging — হোম">
+              <Logo tone="light" />
+            </a>
+            <p className="mt-5 max-w-xs text-sm leading-7">
+              আপনার পণ্যকে নতুন পরিচয় দিতে প্রিন্টিং ও প্যাকেজিং সলিউশন।
+              আরমানীটোলা, ঢাকা, বাংলাদেশ।
             </p>
-            <div className="mt-5 flex items-center gap-3">
-              <a
-                href={waLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="WhatsApp"
-                className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-royal-100 ring-1 ring-white/10 transition-colors hover:bg-[#25D366] hover:text-white"
-              >
-                <WhatsAppIcon className="h-5 w-5" />
-              </a>
-              <a
-                href={CONTACT.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-                className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-royal-100 ring-1 ring-white/10 transition-colors hover:bg-[#1877F2] hover:text-white"
-              >
-                <FacebookIcon className="h-5 w-5" />
-              </a>
-              <a
-                href={`tel:${CONTACT.phoneDial}`}
-                aria-label="Call"
-                className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-royal-100 ring-1 ring-white/10 transition-colors hover:bg-gold-400 hover:text-royal-900"
-              >
-                <Phone className="h-5 w-5" />
-              </a>
-            </div>
+            <a
+              href={waLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-white"
+            >
+              <WhatsAppIcon className="h-4 w-4" />
+              {CONTACT.whatsappDisplay}
+              <ArrowUpRight size={16} />
+            </a>
           </div>
-
-          {/* Quick links */}
-          <div className="lg:col-span-2">
-            <h4 className="text-sm font-bold uppercase tracking-wide text-white">Quick Links</h4>
-            <ul className="mt-4 space-y-2.5 text-[14px]">
-              {NAV_LINKS.map((l) => (
-                <li key={l.href}>
-                  <a href={l.href} className="transition-colors hover:text-gold-300">
-                    {l.label}
+          <div>
+            <h2 className="text-xs font-bold uppercase tracking-widest text-gold-300">
+              প্রোডাক্ট ও সেবা
+            </h2>
+            <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-1">
+              {SERVICES.map((s) => (
+                <li key={s.id}>
+                  <a
+                    href={servicePath(s.id)}
+                    className="inline-flex min-h-10 items-center py-2 text-xs leading-5 transition-colors hover:text-white"
+                  >
+                    {SERVICE_LABELS[s.id]}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
-
-          {/* Services */}
-          <div className="lg:col-span-3">
-            <h4 className="text-sm font-bold uppercase tracking-wide text-white">Services</h4>
-            <ul className="mt-4 grid grid-cols-1 gap-2.5 text-[14px] sm:grid-cols-2">
-              {SERVICE_LINKS.map((s) => (
-                <li key={s}>
-                  <a href="#services" className="transition-colors hover:text-gold-300">
-                    {s}
+          <div>
+            <h2 className="text-xs font-bold uppercase tracking-widest text-gold-300">
+              সাহায্য ও যোগাযোগ
+            </h2>
+            <ul className="mt-4 space-y-1">
+              {GUIDES.map((g) => (
+                <li key={g.slug}>
+                  <a
+                    href={guidePath(g.slug)}
+                    className="inline-block py-2 text-xs leading-6 hover:text-white"
+                  >
+                    {g.title}
                   </a>
                 </li>
               ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div className="lg:col-span-3">
-            <h4 className="text-sm font-bold uppercase tracking-wide text-white">Contact</h4>
-            <ul className="mt-4 space-y-3 text-[14px]">
-              <li className="flex items-start gap-2.5">
-                <Phone className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" />
-                <a href={`tel:${CONTACT.phoneDial}`} className="hover:text-gold-300">
-                  {CONTACT.phoneDisplay}
+              <li>
+                <a
+                  href="/#faq"
+                  className="inline-block min-h-10 py-2 text-xs hover:text-white"
+                >
+                  সাধারণ জিজ্ঞাসা
                 </a>
               </li>
-              <li className="flex items-start gap-2.5">
-                <WhatsAppIcon className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" />
-                <a href={waLink()} target="_blank" rel="noopener noreferrer" className="hover:text-gold-300">
-                  {CONTACT.whatsappDisplay}
+              <li>
+                <a
+                  href="/#contact"
+                  className="inline-block min-h-10 py-2 text-xs hover:text-white"
+                >
+                  ঠিকানা ও অফিসের সময়
                 </a>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" />
-                <a href={`mailto:${CONTACT.email}`} className="break-all hover:text-gold-300">
-                  {CONTACT.email}
-                </a>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" />
-                <span>{ADDRESS.lines.join(" ")}</span>
               </li>
             </ul>
           </div>
         </div>
+        <div className="flex flex-col justify-between gap-2 border-t border-white/10 py-5 text-[11px] sm:flex-row">
+          <p>© 2026 Smart Printing Packaging. All rights reserved.</p>
+          <p>Printing. Packaging. Your brand.</p>
+        </div>
       </Container>
-
-      <div className="border-t border-white/10">
-        <Container className="flex flex-col items-center justify-between gap-2 py-5 text-center text-[13px] sm:flex-row sm:text-left">
-          <p>© 2026 Smart Printing Packaging. All Rights Reserved.</p>
-          <p className="text-royal-100/50">স্যাম্পল ওয়েবসাইট — চূড়ান্ত ডেভেলপমেন্টের পূর্বে অনুমোদনের জন্য।</p>
-        </Container>
-      </div>
     </footer>
   );
 }

@@ -32,3 +32,6 @@ yarn-error.log*
 # Cache
 .cache/
 .parcel-cache/
+# Browser test output
+test-results/
+playwright-report/

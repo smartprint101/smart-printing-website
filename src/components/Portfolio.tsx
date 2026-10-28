@@ -6,40 +6,40 @@ import { cn } from "@/utils/cn";
 // ==================== IMAGE IMPORTS ====================
 
 // Printed LD Packet
-import printedLdPacket1 from "@/assets/services2/printed-ld-packet-1.png";
-import printedLdPacket2 from "@/assets/services2/printed-ld-packet-2.png";
-import printedLdPacket3 from "@/assets/services2/printed-ld-packet-3.png";
-import printedLdPacket4 from "@/assets/services2/printed-ld-packet-4.png";
-import printedLdPacket5 from "@/assets/services2/printed-ld-packet-5.png";
+import printedLdPacket1 from "@/assets/services2/printed-ld-packet-1.webp";
+import printedLdPacket2 from "@/assets/services2/printed-ld-packet-2.webp";
+import printedLdPacket3 from "@/assets/services2/printed-ld-packet-3.webp";
+import printedLdPacket4 from "@/assets/services2/printed-ld-packet-4.webp";
+import printedLdPacket5 from "@/assets/services2/printed-ld-packet-5.webp";
 
 // Foil Pouch
-import foilPouch1 from "@/assets/services2/foil-pouch-1.png";
-import foilPouch2 from "@/assets/services2/foil-pouch-2.png";
-import foilPouch3 from "@/assets/services2/foil-pouch-3.png";
-import foilPouch4 from "@/assets/services2/foil-pouch-4.png";
-import foilPouch5 from "@/assets/services2/foil-pouch-5.png";
+import foilPouch1 from "@/assets/services2/foil-pouch-1.webp";
+import foilPouch2 from "@/assets/services2/foil-pouch-2.webp";
+import foilPouch3 from "@/assets/services2/foil-pouch-3.webp";
+import foilPouch4 from "@/assets/services2/foil-pouch-4.webp";
+import foilPouch5 from "@/assets/services2/foil-pouch-5.webp";
 
 // Box
-import box1 from "@/assets/services2/box1.png";
-import box2 from "@/assets/services2/box2.png";
-import box3 from "@/assets/services2/box3.png";
-import box4 from "@/assets/services2/box4.png";
+import box1 from "@/assets/services2/box1.webp";
+import box2 from "@/assets/services2/box2.webp";
+import box3 from "@/assets/services2/box3.webp";
+import box4 from "@/assets/services2/box4.webp";
 
 // Sticker
-import sticker1 from "@/assets/services2/Sticker1.png";
-import sticker2 from "@/assets/services2/Sticker2.png";
-import sticker3 from "@/assets/services2/Sticker3.png";
-import sticker4 from "@/assets/services2/Sticker4.png";
+import sticker1 from "@/assets/services2/Sticker1.webp";
+import sticker2 from "@/assets/services2/Sticker2.webp";
+import sticker3 from "@/assets/services2/Sticker3.webp";
+import sticker4 from "@/assets/services2/Sticker4.webp";
 
 // Offset
-import offset from "@/assets/services2/offset.jpg";
+import offset from "@/assets/services2/offset.webp";
 
 // Readymade Collection
-import foilRadymet from "@/assets/services2/foilradymet.png";
-import geperRadymet from "@/assets/services2/geperradymet.png";
-import ldRadymet from "@/assets/services2/Ldradymet.png";
-import srinkRadymet from "@/assets/services2/srinkradymet.png";
-import suqureRadymet from "@/assets/services2/suquretradymet.png";
+import foilRadymet from "@/assets/services2/foilradymet.webp";
+import geperRadymet from "@/assets/services2/geperradymet.webp";
+import ldRadymet from "@/assets/services2/Ldradymet.webp";
+import srinkRadymet from "@/assets/services2/srinkradymet.webp";
+import suqureRadymet from "@/assets/services2/suquretradymet.webp";
 
 // ==================== TYPES & CATEGORIES ====================
 

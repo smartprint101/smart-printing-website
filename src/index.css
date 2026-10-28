@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+/* Self-hosted variable fonts: no render dependency on Google's font servers. */
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Noto Sans Bengali";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("@fontsource-variable/noto-sans-bengali/files/noto-sans-bengali-bengali-wght-normal.woff2") format("woff2");
+}
+
 @theme {
   /* Typography */
   --font-sans: "Manrope", "Noto Sans Bengali", ui-sans-serif, system-ui, sans-serif;
@@ -132,4 +148,26 @@
 
 .animate-fadeIn {
   animation: fadeIn 0.4s ease-in-out;
+}
+/* Product-first storefront: calm surfaces, readable Bangla, consistent touch targets. */
+@layer base {
+  button, summary, select { -webkit-tap-highlight-color: transparent; }
+  button, summary { touch-action: manipulation; }
+  a, button, input, select, textarea, summary { scroll-margin-top: 9rem; }
+  :focus-visible { outline: 3px solid #996034; outline-offset: 4px; }
+  #main-content:focus { outline: none; }
+  summary::-webkit-details-marker { display: none; }
+}
+.kicker { display: flex; align-items: center; gap: 0.5rem; font-size: 10px; font-weight: 800; letter-spacing: 0.13em; line-height: 1.8; color: #996034; }
+.faq-item[open] > summary svg { transform: rotate(45deg); }
+.tool-disclosure[open] > summary { border-bottom: 1px solid var(--color-line); }
+.tool-disclosure[open] > summary svg { transform: rotate(180deg); }
+.mobile-action-bar { padding-bottom: max(0.5rem, env(safe-area-inset-bottom)); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* Avoid Safari zooming the page while a customer enters a size or phone number. */
+@media (max-width: 639px) {
+  input, select, textarea { font-size: 16px !important; }
 }

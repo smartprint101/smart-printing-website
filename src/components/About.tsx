@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { Container, Eyebrow, Reveal, Button, WhatsAppIcon } from "./ui";
 import { waLink, COMPANY } from "@/lib/site";
-import aboutImg from "@/assets/about-facility.jpg";
+import aboutImg from "@/assets/about-facility.webp";
 
 // ==================== 10 SERVICES LIST ====================
 
