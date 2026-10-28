@@ -1,3 +1,4 @@
+import { Component, lazy, Suspense, useEffect, useState, type ReactNode } from "react";
 import {
   ArrowUpRight,
   Check,
@@ -7,11 +8,80 @@ import {
   Send,
 } from "lucide-react";
 import { Container } from "./ui";
-import { ProductFinder } from "./ProductFinder";
-import { BudgetEstimator } from "./BudgetEstimator";
+import { waLink } from "@/lib/site";
 import materials from "@/assets/materials-flatlay.webp";
 
+// These optional, below-fold tools do not contain the primary page content.
+const ProductFinder = lazy(() =>
+  import("./ProductFinder").then((module) => ({ default: module.ProductFinder })),
+);
+const BudgetEstimator = lazy(() =>
+  import("./BudgetEstimator").then((module) => ({ default: module.BudgetEstimator })),
+);
+
+function ToolFallback({
+  loading = false,
+  failed = false,
+}: {
+  loading?: boolean;
+  failed?: boolean;
+}) {
+  const message = loading
+    ? "টুলটি লোড হচ্ছে। "
+    : failed
+      ? "টুলটি লোড করা যায়নি। পেজটি আবার খুলুন অথবা "
+      : "টুলটি ব্যবহার করতে JavaScript প্রয়োজন। প্রয়োজনে ";
+  return (
+    <p
+      className="px-5 pb-5 text-sm leading-7 text-muted"
+      role={loading ? "status" : undefined}
+    >
+      {message}
+      <a
+        className="font-bold text-royal-800 underline"
+        href={waLink()}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        WhatsApp-এ সরাসরি যোগাযোগ করুন
+      </a>
+      ।
+    </p>
+  );
+}
+
+// A failed optional chunk must not remove the main storefront or contact path.
+class ToolErrorBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  render() {
+    return this.state.failed ? <ToolFallback failed /> : this.props.children;
+  }
+}
+
 export function ShoppingHelp() {
+  const [finderOpen, setFinderOpen] = useState(false);
+  const [finderLoaded, setFinderLoaded] = useState(false);
+  const [calculatorOpen, setCalculatorOpen] = useState(false);
+  const [calculatorLoaded, setCalculatorLoaded] = useState(false);
+
+  useEffect(() => {
+    const openLinkedTool = () => {
+      if (window.location.hash === "#product-finder") {
+        setFinderLoaded(true);
+        setFinderOpen(true);
+      } else if (window.location.hash === "#budget") {
+        setCalculatorLoaded(true);
+        setCalculatorOpen(true);
+      }
+    };
+    openLinkedTool();
+    window.addEventListener("hashchange", openLinkedTool);
+    return () => window.removeEventListener("hashchange", openLinkedTool);
+  }, []);
+
   return (
     <>
       <section
@@ -78,9 +148,8 @@ export function ShoppingHelp() {
                 শুরুটা একসাথেই করি।
               </h2>
               <p className="mt-4 text-sm leading-7 text-white/75">
-                আমাদের মাধ্যমে সংশ্লিষ্ট প্রিন্টিং বা প্যাকেজিংয়ের কাজ করলে
-                প্রয়োজন অনুযায়ী ডিজাইন সাপোর্ট ফ্রি। লোগো ও পণ্যের তথ্য দিয়ে
-                আলোচনা শুরু করুন।
+                লোগো ও পণ্যের তথ্য দিয়ে আলোচনা শুরু করুন। প্রয়োজন অনুযায়ী
+                ডিজাইন সাপোর্ট, খরচ ও কাজের শর্ত কোটেশনের সময় নিশ্চিত করুন।
               </p>
               <div className="mt-5 flex flex-wrap gap-4 text-xs text-white/85">
                 {["ব্র্যান্ড অনুযায়ী ডিজাইন", "প্রিন্টের আগে অনুমোদন"].map(
@@ -128,7 +197,16 @@ export function ShoppingHelp() {
               প্রয়োজনে নিচের টুল খুলুন। হিসাব প্রাথমিক ধারণা, চূড়ান্ত কোটেশন নয়।
             </p>
           </div>
-          <details className="tool-disclosure mb-3 rounded-2xl border border-line">
+          <details
+            id="product-finder"
+            open={finderOpen}
+            onToggle={(event) => {
+              const open = event.currentTarget.open;
+              setFinderOpen(open);
+              if (open) setFinderLoaded(true);
+            }}
+            className="tool-disclosure mb-3 rounded-2xl border border-line"
+          >
             <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-3 px-5 py-4 font-bold text-royal-900">
               <span>
                 প্যাকেট ফাইন্ডার{" "}
@@ -138,9 +216,31 @@ export function ShoppingHelp() {
               </span>
               <ChevronDown size={19} className="shrink-0" />
             </summary>
-            <ProductFinder />
+            {finderLoaded ? (
+              <ToolErrorBoundary>
+                <Suspense fallback={<ToolFallback loading />}>
+                  <ProductFinder
+                    onOpenCalculator={() => {
+                      setCalculatorLoaded(true);
+                      setCalculatorOpen(true);
+                    }}
+                  />
+                </Suspense>
+              </ToolErrorBoundary>
+            ) : (
+              <ToolFallback />
+            )}
           </details>
-          <details className="tool-disclosure rounded-2xl border border-line">
+          <details
+            id="budget"
+            open={calculatorOpen}
+            onToggle={(event) => {
+              const open = event.currentTarget.open;
+              setCalculatorOpen(open);
+              if (open) setCalculatorLoaded(true);
+            }}
+            className="tool-disclosure rounded-2xl border border-line"
+          >
             <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-3 px-5 py-4 font-bold text-royal-900">
               <span>
                 বাজেট ক্যালকুলেটর{" "}
@@ -150,7 +250,15 @@ export function ShoppingHelp() {
               </span>
               <ChevronDown size={19} className="shrink-0" />
             </summary>
-            <BudgetEstimator />
+            {calculatorLoaded ? (
+              <ToolErrorBoundary>
+                <Suspense fallback={<ToolFallback loading />}>
+                  <BudgetEstimator />
+                </Suspense>
+              </ToolErrorBoundary>
+            ) : (
+              <ToolFallback />
+            )}
           </details>
         </Container>
       </section>

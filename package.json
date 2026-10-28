@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "test:seo": "node --test tests/seo.test.mjs",
     "optimize:images": "node scripts/optimize-images.mjs",
+    "generate:brand-assets": "node scripts/generate-brand-assets.mjs",
     "check:live-seo": "node scripts/check-live-seo.mjs",
     "test:browser": "playwright test",
     "test": "npm run typecheck && npm run build && npm run test:seo && npm run test:browser"

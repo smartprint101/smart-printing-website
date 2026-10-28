@@ -6,10 +6,10 @@ import { waLink } from "@/lib/site";
 import { Container, WhatsAppIcon } from "./ui";
 
 export const SERVICE_LABELS: Record<string, string> = {
-  "ld-packet": "কাস্টম LD প্যাকেট",
+  "ld-packet": "পলি ও LD প্যাকেট প্রিন্টিং",
   "foil-packet": "ফয়েল প্যাকেট ও পাউচ",
-  "custom-box": "কাস্টম প্রিন্টেড বক্স",
-  sticker: "স্টিকার ও লেবেল",
+  "custom-box": "কাস্টম বক্স প্রিন্টিং",
+  sticker: "স্টিকার ও লেবেল প্রিন্টিং",
   cylinder: "প্রিন্টিং সিলিন্ডার",
   "art-paper": "আর্ট পেপার প্রিন্টিং",
   "security-poly": "সিকিউরিটি শ্রিংক সিল",

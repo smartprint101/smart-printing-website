@@ -37,8 +37,6 @@ interface Recommendation {
     name: string;
     icon: string;
     reason: string;
-    moq: string;
-    delivery: string;
   };
   needsSticker: boolean;
   needsBox: boolean;
@@ -195,8 +193,6 @@ function getRecommendation(
         icon: "💬",
         reason:
           "আপনার পণ্যের ধরন unique। সঠিক প্যাকেজিং সাজেশন পেতে আমাদের এক্সপার্টের সাথে কথা বলুন।",
-        moq: "আপনার প্রয়োজন অনুযায়ী",
-        delivery: "প্রয়োজন অনুযায়ী",
       },
       needsSticker: false,
       needsBox: false,
@@ -213,14 +209,12 @@ function getRecommendation(
           name: "Custom Print LD Packet",
           icon: "🍚",
           reason:
-            "চাল-ডালের জন্য LD প্যাকেট সবচেয়ে ভালো। Custom Print-এ আপনার Brand-এর সম্পূর্ণ Identity তৈরি হবে। ৪টি সিলিন্ডার দিয়ে আকর্ষণীয় ডিজাইন করা যাবে।",
-          moq: "১৫০ KG থেকে",
-          delivery: "১০-১৫ দিন",
+            "চাল-ডালের জন্য কাস্টম LD প্যাকেট বিবেচনা করতে পারেন। পণ্যের সঙ্গে ম্যাটেরিয়ালের উপযোগিতা, প্রিন্টের রং এবং প্রয়োজনীয় সিলিন্ডার সম্পর্কে নিশ্চিত করুন।",
         },
         needsSticker: true,
         needsBox: false,
         showCostCalculator: true,
-        extraNote: "৪টি Cylinder লাগবে (Custom Print-এর জন্য)",
+        extraNote: "সিলিন্ডারের সংখ্যা ও খরচ ডিজাইন এবং প্রিন্টিং পদ্ধতি অনুযায়ী নিশ্চিত করুন।",
       };
     }
     return {
@@ -228,9 +222,7 @@ function getRecommendation(
         name: "Ready-made LD Packet",
         icon: "🍚",
         reason:
-          "চাল-ডালের জন্য LD প্যাকেট perfect। Ready-made প্যাকেটে Sticker লাগিয়ে দ্রুত Brand করা যায়। কম বাজেটে শুরু করার best option।",
-        moq: "৫০০ পিস থেকে",
-        delivery: "৩-৫ দিন",
+          "রেডিমেড LD প্যাকেট ও ব্র্যান্ড স্টিকার একটি বিকল্প হতে পারে। পণ্যের উপযোগিতা, প্যাকেটের মাপ, স্টক ও মোট খরচ যাচাই করুন।",
       },
       needsSticker: brand !== "plain",
       needsBox: false,
@@ -246,14 +238,12 @@ function getRecommendation(
           name: "Custom Print Foil Packet",
           icon: "🍪",
           reason:
-            "শুকনো খাবারের freshness ধরে রাখতে Foil প্যাকেট best। Custom Print দিয়ে Premium Brand look আসবে। ৫টি সিলিন্ডারে অসাধারণ ডিজাইন সম্ভব।",
-          moq: "২০০ KG থেকে",
-          delivery: "১২-১৮ দিন",
+            "শুকনো খাবারের জন্য কাস্টম ফয়েল পাউচ বিবেচনা করতে পারেন। খাদ্য-সংস্পর্শের প্রমাণ, প্রয়োজনীয় স্তর, সিলিং ও সিলিন্ডারের সংখ্যা অর্ডারের আগে যাচাই করুন।",
         },
         needsSticker: true,
         needsBox: false,
         showCostCalculator: true,
-        extraNote: "৫টি Cylinder লাগবে (Custom Print-এর জন্য)",
+        extraNote: "সিলিন্ডারের সংখ্যা ও খরচ ডিজাইন এবং প্রিন্টিং পদ্ধতি অনুযায়ী নিশ্চিত করুন।",
       };
     }
     return {
@@ -261,9 +251,7 @@ function getRecommendation(
         name: "Ready-made Foil Packet",
         icon: "🍪",
         reason:
-          "শুকনো খাবারের জন্য Foil প্যাকেট perfect — Moisture থেকে রক্ষা করে। Ready-made + Sticker দিয়ে দ্রুত Market-এ যাওয়া যায়।",
-        moq: "৫০০ পিস থেকে",
-        delivery: "৩-৫ দিন",
+          "রেডিমেড পাউচ ও স্টিকার একটি বিকল্প হতে পারে। খাদ্য-সংস্পর্শ, আর্দ্রতা ও সংরক্ষণের প্রয়োজন অনুযায়ী ম্যাটেরিয়াল এবং সিলিং যাচাই করুন।",
       },
       needsSticker: brand !== "plain",
       needsBox: false,
@@ -279,8 +267,6 @@ function getRecommendation(
         icon: "🏷️",
         reason:
           "বোতল/জারের জন্য সবচেয়ে গুরুত্বপূর্ণ হলো সুন্দর Sticker Label। এটাই আপনার Product-এর মূল Brand Identity। সাথে Outer Box থাকলে Professional look আসবে।",
-        moq: "৫০০ পিস থেকে",
-        delivery: "৩-৭ দিন",
       },
       needsSticker: true,
       needsBox: true,
@@ -297,8 +283,6 @@ function getRecommendation(
         icon: "💄",
         reason:
           "কসমেটিক্সের সৌন্দর্য প্যাকেজিং-এই। Premium Custom Box + Attractive Sticker Label ছাড়া Beauty Product Sell করা কঠিন। কাস্টমারের Trust এতেই বাড়ে।",
-        moq: "২০০ পিস থেকে",
-        delivery: "৭-১০ দিন",
       },
       needsSticker: true,
       needsBox: true,
@@ -314,14 +298,12 @@ function getRecommendation(
         name: "Medicine Box + Label Sticker",
         icon: "💊",
         reason:
-          "ঔষধের জন্য Box বাধ্যতামূলক (DGDA Standard)। সাথে Product Info, Batch, Expiry-সহ Professional Sticker দরকার। এটা Regulatory Compliance-এর জন্যও জরুরি।",
-        moq: "৫০০ পিস থেকে",
-        delivery: "৭-১০ দিন",
+          "ঔষধের প্যাকেজিং ও লেবেলের প্রয়োজন পণ্যভেদে আলাদা। প্রযোজ্য বিধি, ম্যাটেরিয়াল ও প্রয়োজনীয় অনুমোদন সংশ্লিষ্ট কর্তৃপক্ষ ও বিশেষজ্ঞের সঙ্গে যাচাই করুন।",
       },
       needsSticker: true,
       needsBox: true,
-      boxNote: "ঔষধের জন্য Box বাধ্যতামূলক (আইনি প্রয়োজন)",
-      extraNote: "⚠️ ঔষধের জন্য DGDA Approved Box দরকার",
+      boxNote: "বক্স ও লেবেলের জন্য প্রযোজ্য নিয়ম পণ্য অনুযায়ী যাচাই করুন।",
+      extraNote: "এই পরামর্শ কোনো অনুমোদন বা সনদের দাবি নয়।",
       showCostCalculator: false,
     };
   }
@@ -335,8 +317,6 @@ function getRecommendation(
           icon: "👕",
           reason:
             "প্রিমিয়াম গার্মেন্টসের জন্য সুন্দর Box + Tissue Paper Packaging দিলে Product-এর Value বাড়ে। Unboxing Experience আপনার Brand-কে Memorable করে।",
-          moq: "২০০ পিস থেকে",
-          delivery: "৭-১০ দিন",
         },
         needsSticker: true,
         needsBox: true,
@@ -350,8 +330,6 @@ function getRecommendation(
         icon: "👕",
         reason:
           "গার্মেন্টসের জন্য Poly Bag সবচেয়ে Cost-effective। Brand Sticker লাগিয়ে সহজে Identity তৈরি করা যায়। Online Sell-এর জন্য perfect।",
-        moq: "৫০০ পিস থেকে",
-        delivery: "৩-৭ দিন",
       },
       needsSticker: true,
       needsBox: false,
@@ -366,14 +344,12 @@ function getRecommendation(
         name: "Custom Electronics Box + Sticker",
         icon: "📱",
         reason:
-          "ইলেকট্রনিক্সের জন্য Sturdy Custom Box বাধ্যতামূলক — Product Protection ও Brand Value দুটোই দেয়। Inner Foam/Insert সহ Professional Packaging দরকার।",
-        moq: "২০০ পিস থেকে",
-        delivery: "১০-১৫ দিন",
+          "ইলেকট্রনিক্স পণ্যের মাপ, ওজন ও পরিবহনের প্রয়োজন অনুযায়ী বক্সের গঠন যাচাই করুন। কোনো insert প্রয়োজন হলে তার উপযোগিতা ও প্রাপ্যতা আলোচনা করুন।",
       },
       needsSticker: true,
       needsBox: true,
-      boxNote: "Custom Box বাধ্যতামূলক (Protection + Branding)",
-      extraNote: "Inner Foam/Insert সহ Complete Packaging Solution",
+      boxNote: "মাপ, বোর্ড ও পণ্যের সুরক্ষার চাহিদা জানিয়ে বক্সের বিকল্প আলোচনা করুন।",
+      extraNote: "প্রয়োজনীয় insert-এর প্রাপ্যতা ও উপযোগিতা নিশ্চিত করুন।",
       showCostCalculator: false,
     };
   }
@@ -386,9 +362,7 @@ function getRecommendation(
           name: "Custom Print Mailer Box",
           icon: "🛒",
           reason:
-            "ই-কমার্স Brand-এর জন্য Custom Mailer Box game-changer। Unboxing Video, Social Media Share — সবকিছুতে আপনার Brand দেখা যাবে। Repeat Customer বাড়াবে।",
-          moq: "৩০০ পিস থেকে",
-          delivery: "১০-১৪ দিন",
+            "অনলাইন বিক্রির পণ্যের মাপ ও পরিবহনের প্রয়োজন অনুযায়ী ব্র্যান্ডেড বক্সের বিকল্প আলোচনা করুন।",
         },
         needsSticker: true,
         needsBox: true,
@@ -401,9 +375,7 @@ function getRecommendation(
         name: "Ready-made Mailer Box + Sticker",
         icon: "🛒",
         reason:
-          "শুরুর দিকে Ready-made Mailer Box + Custom Sticker দিয়ে দ্রুত Ship করতে পারবেন। কম খরচে Professional Look।",
-        moq: "৫০০ পিস থেকে",
-        delivery: "৫-৭ দিন",
+          "রেডিমেড বক্স ও কাস্টম স্টিকার প্রয়োজন হলে সাইজ, স্টক ও পরিবহনের উপযোগিতা নিশ্চিত করুন।",
       },
       needsSticker: true,
       needsBox: true,
@@ -419,9 +391,7 @@ function getRecommendation(
         name: "Premium Gift Box + Paper Bag",
         icon: "🎁",
         reason:
-          "গিফট প্যাকেজিং আপনার Product-কে Special বানায়। Premium Rigid Box + Ribbon + Paper Bag combo দিলে কাস্টমার মুগ্ধ হবেই। Wedding/Corporate Gift-এ perfect।",
-        moq: "১০০ পিস থেকে",
-        delivery: "১০-১৫ দিন",
+          "গিফটের মাপ ও প্রয়োজন অনুযায়ী বক্স, লেবেল বা ব্যাগের বিকল্প আলোচনা করুন। রিবন বা অন্য ফিনিশিংয়ের প্রাপ্যতা আগে নিশ্চিত করুন।",
       },
       needsSticker: true,
       needsBox: true,
@@ -439,8 +409,6 @@ function getRecommendation(
           icon: "🏢",
           reason:
             "Corporate Branding-এর জন্য Offset Print quality সবচেয়ে ভালো। Brochure, Business Card, Paper Bag — সব একসাথে করলে Consistent Brand Identity তৈরি হবে।",
-          moq: "৫০০ পিস থেকে",
-          delivery: "৭-১০ দিন",
         },
         needsSticker: false,
         needsBox: false,
@@ -450,12 +418,10 @@ function getRecommendation(
     }
     return {
       primary: {
-        name: "Digital Print + Paper Bag",
+        name: "Printing ও Paper Bag নিয়ে আলোচনা",
         icon: "🏢",
         reason:
-          "কম quantity-তে Digital Printing best। দ্রুত Delivery, কম খরচে Professional look। Small Business/Startup-এর জন্য perfect।",
-        moq: "১০০ পিস থেকে",
-        delivery: "৩-৭ দিন",
+          "কম পরিমাণের প্রিন্ট ও পেপার ব্যাগের প্রয়োজন জানিয়ে উপলব্ধ পদ্ধতি, খরচ ও সময় নিয়ে আলোচনা করুন।",
       },
       needsSticker: false,
       needsBox: false,
@@ -470,8 +436,6 @@ function getRecommendation(
       icon: "📦",
       reason:
         "আপনার প্রয়োজন অনুযায়ী কাস্টম সমাধান দিতে পারি। বিস্তারিত জানতে যোগাযোগ করুন।",
-      moq: "আপনার প্রয়োজন অনুযায়ী",
-      delivery: "৭-১৫ দিন",
     },
     needsSticker: false,
     needsBox: false,
@@ -496,7 +460,7 @@ const trackPixelEvent = (event: string, params?: Record<string, unknown>) => {
 
 // ==================== MAIN COMPONENT ====================
 
-export function ProductFinder() {
+export function ProductFinder({ onOpenCalculator }: { onOpenCalculator?: () => void }) {
   const [step, setStep] = useState<0 | 1 | 2 | 3>(0);
   const [product, setProduct] = useState<ProductType | null>(null);
   const [budget, setBudget] = useState<BudgetType | null>(null);
@@ -584,6 +548,7 @@ export function ProductFinder() {
   };
 
   const handleCostCalculatorClick = () => {
+    onOpenCalculator?.();
     trackPixelEvent("PacketFinderCalculatorClick", {
       content_name: "Cost Calculator from Product Finder",
       content_category: "Tool",
@@ -621,7 +586,7 @@ export function ProductFinder() {
 
   return (
     <section
-      id="product-finder"
+      id="product-finder-tool"
       className="scroll-mt-24 bg-linear-to-b from-mist to-white py-14 sm:py-20"
     >
       <Container>
@@ -630,7 +595,7 @@ export function ProductFinder() {
             center
             eyebrow="Product Finder"
             title="আপনার সঠিক প্যাকেট খুঁজে নিন"
-            subtitle="মাত্র ৩টি প্রশ্নের উত্তর দিন — আমরা আপনার পণ্যের জন্য সঠিক প্যাকেজিং সাজেশন দেবো।"
+            subtitle="৩টি প্রশ্নের উত্তরে আলোচনার জন্য সম্ভাব্য প্যাকেজিং বিকল্প দেখুন।"
           />
         </Reveal>
 
@@ -665,7 +630,7 @@ export function ProductFinder() {
                 </h3>
                 <p className="mt-3 text-[14px] leading-relaxed text-muted sm:text-[15px]">
                   আপনার পণ্য, বাজেট ও ব্র্যান্ডিং প্রয়োজন অনুযায়ী <br className="hidden sm:block" />
-                  সবচেয়ে উপযুক্ত প্যাকেজিং সলিউশন পান — সম্পূর্ণ ফ্রি!
+                  প্যাকেজিংয়ের সম্ভাব্য বিকল্প নিয়ে আলোচনা শুরু করুন।
                 </p>
 
                 <div className="mt-6 grid grid-cols-3 gap-2 sm:gap-4">
@@ -896,7 +861,7 @@ export function ProductFinder() {
                         আপনার Recommendation
                       </p>
                       <h3 className="text-[18px] font-extrabold text-ink sm:text-[22px]">
-                        সঠিক প্যাকেট পাওয়া গেছে!
+                        আলোচনার জন্য প্রাথমিক বিকল্প
                       </h3>
                     </div>
                   </div>
@@ -916,17 +881,10 @@ export function ProductFinder() {
                           {recommendation.primary.reason}
                         </p>
 
-                        <div className="mt-3 flex flex-wrap gap-2">
-                          <span className="inline-flex items-center gap-1 rounded-full bg-royal-50 px-2.5 py-1 text-[11px] font-semibold text-royal-700 ring-1 ring-royal-100">
-                            📦 MOQ: {recommendation.primary.moq}
-                          </span>
-                          <span className="inline-flex items-center gap-1 rounded-full bg-royal-50 px-2.5 py-1 text-[11px] font-semibold text-royal-700 ring-1 ring-royal-100">
-                            🚚 Delivery: {recommendation.primary.delivery}
-                          </span>
-                          <span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-[11px] font-semibold text-green-700 ring-1 ring-green-200">
-                            ✨ ডিজাইন: ফ্রি!
-                          </span>
-                        </div>
+                        <p className="mt-3 text-xs leading-6 text-muted">
+                          এটি প্রাথমিক ধারণা। ম্যাটেরিয়ালের উপযোগিতা, সনদ, স্টক,
+                          ন্যূনতম অর্ডার, দাম, ডিজাইনের শর্ত ও সময় নিশ্চিত করুন।
+                        </p>
 
                         {recommendation.extraNote && (
                           <div className="mt-3 flex items-start gap-1.5 rounded-lg bg-mist p-2.5 text-[12px] text-royal-800">
@@ -951,7 +909,7 @@ export function ProductFinder() {
                             Custom Sticker (Label)
                           </h4>
                           <p className="mt-1 text-[12px] leading-relaxed text-muted">
-                            আপনার Logo + Brand Name + MRP + Weight + Barcode সহ Professional Sticker। ৫০০ পিস থেকে, ডিজাইন সম্পূর্ণ ফ্রি।
+                            লোগো ও প্রয়োজনীয় পণ্যের তথ্যসহ স্টিকারের সাইজ, উপযোগিতা ও অর্ডারের শর্ত যাচাই করুন।
                           </p>
                         </div>
                       </div>
@@ -972,7 +930,7 @@ export function ProductFinder() {
                           </h4>
                           <p className="mt-1 text-[12px] leading-relaxed text-muted">
                             {recommendation.boxNote ||
-                              "Professional Look আনে, কাস্টমারের Trust বাড়ায়। ২০০ পিস থেকে, ডিজাইন ফ্রি।"}
+                              "পণ্যের মাপ, বোর্ড ও বক্সের প্রাপ্যতা নিয়ে আলোচনা করুন।"}
                           </p>
                         </div>
                       </div>
