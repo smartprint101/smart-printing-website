@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
-import { SERVICES, SERVICE_IMAGES } from "@/data/services";
+import { SERVICE_IMAGES } from "@/data/services";
+import { useServices } from "@/lib/catalog";
 import { servicePath } from "@/lib/seo";
 import { waLink } from "@/lib/site";
 import { Container, WhatsAppIcon } from "./ui";
@@ -37,8 +38,10 @@ const packaging = new Set([
 ]);
 export function Services() {
   const [filter, setFilter] = useState("সব সেবা");
+  const allServices = useServices();
   const services = order
-    .map((id) => SERVICES.find((s) => s.id === id)!)
+    .map((id) => allServices.find((s) => s.id === id))
+    .filter((s): s is NonNullable<typeof s> => Boolean(s))
     .filter(
       (s) =>
         filter === "সব সেবা" ||

@@ -12,6 +12,7 @@ import {
   Lightbulb,
 } from "lucide-react";
 import { Container, SectionHeading, Reveal, Button, WhatsAppIcon } from "./ui";
+import { useSiteSettings } from "@/lib/catalog";
 import { waLink, waLinkPacket } from "@/lib/site";
 import { cn } from "@/utils/cn";
 
@@ -64,6 +65,7 @@ const adjustHeight = (h: number): { adjusted: number; multiplier: number } => {
 // ==================== MAIN COMPONENT ====================
 
 export function BudgetEstimator() {
+  const { estimator: rates } = useSiteSettings();
   const [serviceType, setServiceType] = useState<ServiceType>("cylinder-only");
   const [width, setWidth] = useState<string>("");
   const [height, setHeight] = useState<string>("");
@@ -76,9 +78,9 @@ export function BudgetEstimator() {
   const needsKg = serviceType !== "cylinder-only";
   const minKg =
     serviceType === "cylinder-ld"
-      ? 150
+      ? rates.ldMinKg
       : serviceType === "cylinder-foil"
-        ? 200
+        ? rates.foilMinKg
         : 0;
 
   const handleCalculate = () => {
@@ -119,18 +121,19 @@ export function BudgetEstimator() {
     const { adjusted: adjustedW, multiplier: wMultiplier } = adjustWidth(w);
     const { adjusted: adjustedH, multiplier: hMultiplier } = adjustHeight(h);
 
-    const perCylinderPrice = ((adjustedW * adjustedH) / 100) * 2.75;
+    const perCylinderPrice =
+      ((adjustedW * adjustedH) / 100) * rates.cylinderRatePer100cm2;
     const totalCylinderCost = perCylinderPrice * colors;
 
     let packetMinCost: number | undefined;
     let packetMaxCost: number | undefined;
 
     if (serviceType === "cylinder-ld") {
-      packetMinCost = kgNum * 420;
-      packetMaxCost = kgNum * 460;
+      packetMinCost = kgNum * rates.ldMin;
+      packetMaxCost = kgNum * rates.ldMax;
     } else if (serviceType === "cylinder-foil") {
-      packetMinCost = kgNum * 500;
-      packetMaxCost = kgNum * 550;
+      packetMinCost = kgNum * rates.foilMin;
+      packetMaxCost = kgNum * rates.foilMax;
     }
 
     const grandMinTotal = totalCylinderCost + (packetMinCost || 0);
@@ -579,8 +582,8 @@ export function BudgetEstimator() {
                             ৳{formatBDT(result.perCylinderPrice)}
                           </p>
                           <p className="mt-0.5 text-[11px] text-muted">
-                            ({result.adjustedW} × {result.adjustedH} ÷ 100) ×
-                            2.75
+                            ({result.adjustedW} × {result.adjustedH} ÷ 100) ×{" "}
+                            {rates.cylinderRatePer100cm2}
                           </p>
                         </div>
                       </div>
@@ -625,8 +628,8 @@ export function BudgetEstimator() {
                               <p className="text-[11px] text-muted">
                                 ৳
                                 {serviceType === "cylinder-ld"
-                                  ? "420-460"
-                                  : "500-550"}
+                                  ? `${rates.ldMin}-${rates.ldMax}`
+                                  : `${rates.foilMin}-${rates.foilMax}`}
                                 /KG
                               </p>
                             </div>

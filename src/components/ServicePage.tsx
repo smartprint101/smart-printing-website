@@ -5,6 +5,13 @@ import {
   PACKET_SERVICE_IDS,
   type Service,
 } from "@/data/services";
+import {
+  formatPriceShort,
+  productImage,
+  productWaLink,
+  useActiveProducts,
+  useServices,
+} from "@/lib/catalog";
 import { SERVICE_SEO, servicePath } from "@/lib/seo";
 import { ADDRESS, CONTACT, waLink, waLinkPacket } from "@/lib/site";
 import { Button, Container, WhatsAppIcon } from "./ui";
@@ -48,6 +55,55 @@ export function ServiceDirectory() {
   );
 }
 
+function ReadyMadePrices({ serviceId }: { serviceId: string }) {
+  const products = useActiveProducts().filter(
+    (product) => product.serviceId === serviceId,
+  );
+  if (!products.length) return null;
+  return (
+    <section className="mt-8">
+      <h2 className="text-xl font-extrabold text-royal-900">
+        রেডিমেড প্যাকেটের সাইজ ও আনুমানিক দাম
+      </h2>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        {products.map((product) => (
+          <div key={product.id} className="rounded-xl border border-line p-4">
+            <img
+              src={productImage(product)}
+              alt={product.nameBn}
+              loading="lazy"
+              decoding="async"
+              width={320}
+              height={320}
+              className="aspect-square w-full object-contain"
+            />
+            <h3 className="mt-3 font-bold text-royal-900">
+              {product.nameBn}
+            </h3>
+            <p className="mt-2 text-sm text-muted">
+              সাইজ: {product.sizeLabel || "অর্ডারের সময় নিশ্চিত করুন"}
+            </p>
+            <p className="mt-2 text-sm font-semibold text-royal-800">
+              আনুমানিক দাম: {formatPriceShort(product)}
+            </p>
+            <p className="mt-2 text-sm text-muted">
+              ন্যূনতম অর্ডার: {product.minOrder || "১ কেজি"}
+            </p>
+            <a
+              className="mt-3 inline-block text-sm font-bold text-royal-700 underline"
+              href={productWaLink(product)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              স্টক ও চূড়ান্ত দাম জানতে যোগাযোগ করুন
+            </a>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function InfoList({ title, items }: { title: string; items?: string[] }) {
   if (!items?.length) return null;
   return (
@@ -68,7 +124,9 @@ function InfoList({ title, items }: { title: string; items?: string[] }) {
   );
 }
 
-export function ServicePage({ service: s }: { service: Service }) {
+export function ServicePage({ service }: { service: Service }) {
+  const live = useServices().find((item) => item.id === service.id);
+  const s = live ?? service;
   const images = SERVICE_IMAGES[s.id] ?? [];
   const quote = PACKET_SERVICE_IDS.has(s.id)
     ? waLinkPacket(s.cta.message)
@@ -178,51 +236,7 @@ export function ServicePage({ service: s }: { service: Service }) {
                   </p>
                 </section>
               )}
-              {s.readymadeProducts && (
-                <section className="mt-8">
-                  <h2 className="text-xl font-extrabold text-royal-900">
-                    রেডিমেড প্যাকেটের সাইজ ও আনুমানিক দাম
-                  </h2>
-                  <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                    {s.readymadeProducts.map((p) => (
-                      <div
-                        key={p.name}
-                        className="rounded-xl border border-line p-4"
-                      >
-                        <img
-                          src={p.image}
-                          alt={p.name}
-                          loading="lazy"
-                          decoding="async"
-                          width={320}
-                          height={320}
-                          className="aspect-square w-full object-contain"
-                        />
-                        <h3 className="mt-3 font-bold text-royal-900">
-                          {p.name}
-                        </h3>
-                        <p className="mt-2 text-sm text-muted">
-                          সাইজ: {p.size}
-                        </p>
-                        <p className="mt-2 text-sm text-muted">
-                          আনুমানিক দাম: {p.price}
-                        </p>
-                        <p className="mt-2 text-sm text-muted">
-                          ন্যূনতম অর্ডার: {p.minOrder}
-                        </p>
-                        <a
-                          className="mt-3 inline-block text-sm font-bold text-royal-700 underline"
-                          href={waLinkPacket(p.waMessage)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          স্টক ও চূড়ান্ত দাম জানতে যোগাযোগ করুন
-                        </a>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
+              <ReadyMadePrices serviceId={s.id} />
               <section className="mt-8 rounded-xl bg-mist p-5">
                 <h2 className="text-xl font-extrabold text-royal-900">
                   কীভাবে অর্ডার করবেন?
