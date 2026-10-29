@@ -49,12 +49,43 @@ npm run check:live-seo
 
 This checks robots/XML, favicon and logo files, expected canonical URLs, unique metadata, JSON-LD syntax, indexability headers, WhatsApp links and true 404 handling. Against the production origin it also checks HTTP/www and slash redirects. JSON syntax checks are not Google's Rich Results Test; this script does not submit to Google or measure rankings.
 
+## Admin panel (Neon + Cloudflare R2)
+
+Product prices, products, categories, service details and landing pages are
+managed from `/admin/`. Data lives in Neon (PostgreSQL); images are uploaded
+straight to Cloudflare R2 through a Pages Function. The storefront keeps working
+from the built-in catalog in `data/seed/catalog.json` when the API is
+unreachable, so SEO output, no-JavaScript rendering and static hosting stay
+intact.
+
+```sh
+cp .env.example .env        # DATABASE_URL, ADMIN_EMAIL, ADMIN_PASSWORD
+npm run db:setup            # tables + default catalog + admin user (safe to re-run)
+npm run dev                 # site on :5173, admin UI on /admin/
+```
+
+Full step-by-step setup (Neon, R2 bucket and binding, Cloudflare Pages
+variables, deploy hook, troubleshooting) is in
+[docs/ADMIN-PANEL.bn.md](docs/ADMIN-PANEL.bn.md). In short, the Pages project
+needs `DATABASE_URL`, `R2_PUBLIC_BASE_URL`, an R2 bucket binding named `MEDIA`
+and an optional `DEPLOY_HOOK_URL`; `functions/` is deployed automatically and
+`public/_routes.json` limits Function invocations to `/api/*` and `/lp/*`.
+
+API surface: `GET /api/catalog`, `POST /api/admin/login`,
+`GET|DELETE /api/admin/session`, `GET /api/admin/data`, `/api/admin/products`,
+`/api/admin/categories`, `/api/admin/services/:id`, `/api/admin/landing`,
+`/api/admin/settings`, `/api/admin/upload`, `/api/admin/password`,
+`/api/admin/publish`, and server-rendered landing pages at `/lp/:slug/`.
+
 ## Edit content
 
 - `src/lib/site.ts`: company details, office phone, shared WhatsApp number, address and domain.
 - `src/data/services.ts`: service facts, sample images and quote form values.
 - `src/lib/seo.ts`: page titles, descriptions and structured data; the existing schema address and hours are maintained separately from the UI config and must match owner-verified details.
 - `src/data/guides.ts`: packaging guides.
+- `data/seed/catalog.json`: default categories, products and prices used for the
+  static build and for `npm run db:setup` (after seeding, the admin panel is the
+  source of truth at runtime).
 - `src/components/Services.tsx`: storefront labels and custom service order.
 - `scripts/optimize-images.mjs`: regenerate WebP variants and the social card with `npm run optimize:images` after changing original images.
 - `scripts/generate-brand-assets.mjs`: after changing `src/assets/logo.png`, run `npm run generate:brand-assets` and commit the resulting stable favicon, Apple icon and organization logo files in `public/`.

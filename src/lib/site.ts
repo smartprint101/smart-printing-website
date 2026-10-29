@@ -14,6 +14,11 @@ export const COMPANY = {
 const WHATSAPP_NUMBER = "8801660191039";
 const WHATSAPP_DISPLAY = "01660-191039";
 
+/**
+ * Contact values are runtime-mutable so the admin panel can change the
+ * WhatsApp / phone number without a rebuild. The defaults below are what the
+ * static HTML is rendered with.
+ */
 export const CONTACT = {
   phoneDisplay: "+880 1689-318187",
   phoneDial: "+8801689318187",
@@ -51,6 +56,19 @@ export const NAV_LINKS = [
   { label: "প্যাকেজিং গাইড", href: "#guides" },
   { label: "যোগাযোগ", href: "#contact" },
 ];
+
+/** Apply contact details edited in the admin panel (browser runtime only). */
+export function applyContactOverride(
+  patch: Partial<Record<keyof typeof CONTACT, string>>,
+): void {
+  for (const [key, value] of Object.entries(patch)) {
+    if (typeof value === "string" && value.trim()) {
+      (CONTACT as unknown as Record<string, string>)[key] = value.trim();
+    }
+  }
+  CONTACT.whatsappPacketNumber = CONTACT.whatsappNumber;
+  CONTACT.whatsappPacketDisplay = CONTACT.whatsappDisplay;
+}
 
 /** Build a WhatsApp deep link with an optional pre-filled message. */
 export function waLink(message?: string): string {

@@ -1,0 +1,116 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "slug": "packet-pouch",
+      "titleBn": "প্যাকেট ও পাউচ",
+      "titleEn": "Packets & Pouches",
+      "group": "readymade",
+      "sortOrder": 10
+    },
+    {
+      "id": 2,
+      "slug": "poly-seal",
+      "titleBn": "পলি ও সিল",
+      "titleEn": "Poly & Seals",
+      "group": "readymade",
+      "sortOrder": 20
+    },
+    {
+      "id": 3,
+      "slug": "readymade-printed-label",
+      "titleBn": "রেডিমেড ছাপালেভেল",
+      "titleEn": "Ready-made Printed Labels",
+      "group": "extra",
+      "sortOrder": 30
+    }
+  ],
+  "products": [
+    {
+      "slug": "foil-packet",
+      "categorySlug": "packet-pouch",
+      "nameBn": "ফয়েল প্যাকেট",
+      "nameEn": "Foil packet pouch",
+      "price": 530,
+      "priceMax": 570,
+      "priceUnit": "kg",
+      "minOrder": "1 KG",
+      "sizeLabel": "All Size Available",
+      "serviceId": "ready-made",
+      "sortOrder": 10,
+      "isFeatured": true
+    },
+    {
+      "slug": "zipper-packet",
+      "categorySlug": "packet-pouch",
+      "nameBn": "জিপার প্যাকেট",
+      "nameEn": "Zipper packet pouch",
+      "price": 500,
+      "priceMax": 550,
+      "priceUnit": "kg",
+      "minOrder": "1 KG",
+      "sizeLabel": "All Size Available",
+      "serviceId": "ready-made",
+      "sortOrder": 20,
+      "isFeatured": true
+    },
+    {
+      "slug": "ld-packet",
+      "categorySlug": "packet-pouch",
+      "nameBn": "এলডি প্যাকেট",
+      "nameEn": "LD packet poly",
+      "price": 420,
+      "priceMax": 460,
+      "priceUnit": "kg",
+      "minOrder": "1 KG",
+      "sizeLabel": "All Size Available",
+      "serviceId": "ready-made",
+      "sortOrder": 30
+    },
+    {
+      "slug": "shrink-poly",
+      "categorySlug": "poly-seal",
+      "nameBn": "শ্রিংক পলি",
+      "nameEn": "Shrink poly",
+      "price": 350,
+      "priceMax": 550,
+      "priceUnit": "kg",
+      "minOrder": "1 KG",
+      "sizeLabel": "All Size Available",
+      "serviceId": "ready-made",
+      "sortOrder": 40
+    },
+    {
+      "slug": "security-seal",
+      "categorySlug": "poly-seal",
+      "nameBn": "সিকিউরিটি সিল",
+      "nameEn": "Security seal",
+      "price": 450,
+      "priceMax": 600,
+      "priceUnit": "kg",
+      "minOrder": "1 KG",
+      "sizeLabel": "All Size Available",
+      "serviceId": "ready-made",
+      "sortOrder": 50
+    }
+  ],
+  "settings": {
+    "contact": {
+      "whatsappNumber": "8801660191039",
+      "whatsappDisplay": "01660-191039",
+      "phoneDisplay": "+880 1689-318187",
+      "phoneDial": "+8801689318187",
+      "email": "nationalprintingar@gmail.com"
+    },
+    "announcement": "",
+    "estimator": {
+      "cylinderRatePer100cm2": 2.75,
+      "ldMin": 420,
+      "ldMax": 460,
+      "foilMin": 500,
+      "foilMax": 550,
+      "ldMinKg": 150,
+      "foilMinKg": 200
+    }
+  }
+}
