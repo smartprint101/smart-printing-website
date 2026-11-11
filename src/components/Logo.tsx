@@ -1,7 +1,7 @@
 import { cn } from "@/utils/cn";
 import logo from "@/assets/logo.webp";
 
-export function LogoMark({ className }: { className?: string }) {
+function LogoMark({ className }: { className?: string }) {
   return (
     <img
       src={logo}

@@ -78,7 +78,7 @@ test("product and service filters work, including empty search recovery", async 
   page,
 }, testInfo) => {
   await page.goto("/");
-  await expect(page.locator("#products article")).toHaveCount(5);
+  await expect(page.locator("#products article")).toHaveCount(6);
   await page.getByRole("button", { name: "পলি ও সিল", exact: true }).click();
   await expect(page.locator("#products article")).toHaveCount(2);
   await page.getByRole("button", { name: "সব প্রোডাক্ট", exact: true }).click();
@@ -91,7 +91,7 @@ test("product and service filters work, including empty search recovery", async 
   await page
     .getByRole("button", { name: "সব প্রোডাক্ট দেখুন", exact: true })
     .click();
-  await expect(page.locator("#products article")).toHaveCount(5);
+  await expect(page.locator("#products article")).toHaveCount(6);
   await page.getByRole("button", { name: "প্রিন্টিং", exact: true }).click();
   await expect(page.locator("#services article")).toHaveCount(4);
   await page.getByRole("button", { name: "সব সেবা", exact: true }).click();

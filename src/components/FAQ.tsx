@@ -31,7 +31,7 @@ const FAQS = [
   },
   {
     q: "Ready-made packaging কি পাওয়া যায়?",
-    a: "হ্যাঁ। Zipper, LD এবং Foil ready-made packaging 1 KG থেকে নেওয়া যায়, availability ও size অনুযায়ী।",
+    a: "হ্যাঁ। Foil, Metal, Zipper, LD, Shrink ও Security ready-made packaging ন্যূনতম ১০ কেজি থেকে নেওয়া যায়, availability ও size অনুযায়ী।",
   },
   {
     q: "Final price কীভাবে জানা যাবে?",
