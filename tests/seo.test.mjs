@@ -167,10 +167,14 @@ test("all crawlable internal URLs and hash targets resolve, including navigation
 test("homepage is product-first, with all products and service links in the initial HTML", async () => {
   const html = await readFile("dist/index.html", "utf8");
   const main = html.slice(html.indexOf("<main"));
-  assert.ok(main.indexOf('id="products"') < main.indexOf('id="services"'));
+  assert.ok(main.indexOf('id="products"') < main.indexOf('id="tools"'));
+  assert.ok(main.indexOf('id="tools"') < main.indexOf('id="services"'));
   assert.ok(main.includes("রেডিমেড প্রোডাক্ট"));
   assert.ok(main.includes("ফয়েল প্যাকেট"));
+  assert.ok(main.includes("মেটাল প্যাকেট"));
   assert.ok(main.includes("জিপার প্যাকেট"));
+  assert.ok(main.includes("ন্যূনতম ১০ কেজি"));
+  assert.ok(!main.includes("১ কেজি থেকে রেডিমেড"));
   assert.match(html, /autocomplete="tel"/i);
   assert.ok(
     !html.includes("প্রতিষ্ঠানের সাথে কাজের অভিজ্ঞতা"),

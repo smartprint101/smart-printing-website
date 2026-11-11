@@ -2,11 +2,10 @@ import { ArrowUpRight, Check, Phone, BookOpen } from "lucide-react";
 import {
   SERVICES,
   SERVICE_IMAGES,
-  PACKET_SERVICE_IDS,
   type Service,
 } from "@/data/services";
 import { SERVICE_SEO, servicePath } from "@/lib/seo";
-import { ADDRESS, CONTACT, waLink, waLinkPacket } from "@/lib/site";
+import { ADDRESS, CONTACT, waLink } from "@/lib/site";
 import { Button, Container, WhatsAppIcon } from "./ui";
 
 const brandedPackagingServices = new Set([
@@ -17,7 +16,7 @@ const brandedPackagingServices = new Set([
   "ready-made",
 ]);
 
-export function ServiceDirectory() {
+function ServiceDirectory() {
   return (
     <section id="packaging-guide" className="bg-white py-14 sm:py-20">
       <Container>
@@ -70,9 +69,7 @@ function InfoList({ title, items }: { title: string; items?: string[] }) {
 
 export function ServicePage({ service: s }: { service: Service }) {
   const images = SERVICE_IMAGES[s.id] ?? [];
-  const quote = PACKET_SERVICE_IDS.has(s.id)
-    ? waLinkPacket(s.cta.message)
-    : waLink(s.cta.message);
+  const quote = waLink(s.cta.message);
   return (
     <>
       <article className="bg-[#f6f4ee] py-8 sm:py-14">
@@ -212,7 +209,7 @@ export function ServicePage({ service: s }: { service: Service }) {
                         </p>
                         <a
                           className="mt-3 inline-block text-sm font-bold text-royal-700 underline"
-                          href={waLinkPacket(p.waMessage)}
+                          href={waLink(p.waMessage)}
                           target="_blank"
                           rel="noopener noreferrer"
                         >

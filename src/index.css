@@ -19,7 +19,6 @@
 @theme {
   /* Typography */
   --font-sans: "Manrope", "Noto Sans Bengali", ui-sans-serif, system-ui, sans-serif;
-  --font-bangla: "Noto Sans Bengali", "Manrope", ui-sans-serif, system-ui, sans-serif;
 
   /* Royal blue */
   --color-royal-50: #eff4fc;
@@ -94,61 +93,9 @@
   .reveal { opacity: 1; transform: none; transition: none; }
 }
 
-/* Decorative utilities */
-.text-gradient-gold {
-  background: linear-gradient(100deg, #e0c25f 0%, #c9a24b 45%, #8f6c24 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.bg-grid {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 44px 44px;
-}
-
-.bg-dots {
-  background-image: radial-gradient(rgba(201, 162, 75, 0.16) 1px, transparent 1px);
-  background-size: 22px 22px;
-}
-
 .shadow-card { box-shadow: var(--shadow-card); }
 .shadow-soft { box-shadow: var(--shadow-soft); }
 
-/* Marquee for product showcase */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.animate-marquee {
-  animation: marquee 38s linear infinite;
-}
-.marquee-pause:hover .animate-marquee {
-  animation-play-state: paused;
-}
-
-/* Floating whatsapp pulse */
-@keyframes wapulse {
-  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.45); }
-  70% { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-}
-.wa-pulse { animation: wapulse 2.6s infinite; }
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.4s ease-in-out;
-}
 /* Product-first storefront: calm surfaces, readable Bangla, consistent touch targets. */
 @layer base {
   button, summary, select { -webkit-tap-highlight-color: transparent; }
@@ -161,7 +108,7 @@
 .kicker { display: flex; align-items: center; gap: 0.5rem; font-size: 10px; font-weight: 800; letter-spacing: 0.13em; line-height: 1.8; color: #996034; }
 .faq-item[open] > summary svg { transform: rotate(45deg); }
 .tool-disclosure[open] > summary { border-bottom: 1px solid var(--color-line); }
-.tool-disclosure[open] > summary svg { transform: rotate(180deg); }
+.tool-disclosure[open] > summary .tool-chevron { transform: rotate(180deg); }
 .mobile-action-bar { padding-bottom: max(0.5rem, env(safe-area-inset-bottom)); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }

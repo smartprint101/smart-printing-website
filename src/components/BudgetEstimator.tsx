@@ -12,7 +12,7 @@ import {
   Lightbulb,
 } from "lucide-react";
 import { Container, SectionHeading, Reveal, Button, WhatsAppIcon } from "./ui";
-import { waLink, waLinkPacket } from "@/lib/site";
+import { waLink } from "@/lib/site";
 import { cn } from "@/utils/cn";
 
 // ==================== TYPES ====================
@@ -670,11 +670,7 @@ export function BudgetEstimator() {
 
                   {/* WhatsApp Send */}
                   <Button
-                    href={
-                      isPacket
-                        ? waLinkPacket(buildWhatsAppMessage())
-                        : waLink(buildWhatsAppMessage())
-                    }
+                    href={waLink(buildWhatsAppMessage())}
                     target="_blank"
                     rel="noopener noreferrer"
                     variant="whatsapp"

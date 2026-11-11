@@ -4,6 +4,7 @@ import { serviceForPath, normalizePath } from "@/lib/seo";
 import { guideForPath } from "@/data/guides";
 import { Navbar } from "@/components/Navbar";
 import { Products } from "@/components/Products";
+import { PackagingTools } from "@/components/PackagingTools";
 import { Services } from "@/components/Services";
 import { ShoppingHelp } from "@/components/ShoppingHelp";
 import { GuideCards, GuidePage } from "@/components/Guides";
@@ -30,6 +31,7 @@ export default function App({ path = "/" }: { path?: string }) {
         {home ? (
           <>
             <Products />
+            <PackagingTools />
             <Services />
             <ShoppingHelp />
             <QuoteForm />

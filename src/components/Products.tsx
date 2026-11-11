@@ -15,6 +15,7 @@ const products =
 const categories = ["সব প্রোডাক্ট", "প্যাকেট ও পাউচ", "পলি ও সিল"];
 const englishNames = [
   "Foil packet pouch",
+  "Metal metallized packet pouch",
   "Zipper packet pouch",
   "LD packet poly",
   "Shrink poly",
@@ -26,7 +27,7 @@ export function Products() {
   const [query, setQuery] = useState("");
   const filtered = products.filter(
     (p, i) =>
-      (category === 0 || (category === 1 ? i < 3 : i >= 3)) &&
+      (category === 0 || (category === 1 ? i < 4 : i >= 4)) &&
       `${p.name} ${englishNames[i]}`
         .toLowerCase()
         .includes(query.trim().toLowerCase()),
@@ -67,7 +68,7 @@ export function Products() {
           </div>
           <div className="mb-5 mt-5 flex flex-wrap gap-x-6 gap-y-2 border-y border-[#ddd9cf] py-3 text-xs font-medium text-muted sm:mt-8">
             {[
-              "১ কেজি থেকে রেডিমেড প্যাকেট",
+              "ন্যূনতম ১০ কেজি থেকে রেডিমেড প্যাকেট",
               "সাইজ অনুযায়ী কোটেশন",
               "WhatsApp-এ সরাসরি অর্ডার",
             ].map((text, i) => (
@@ -123,7 +124,7 @@ export function Products() {
               {filtered.length}টি প্রোডাক্ট
             </span>
           </div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 xl:grid-cols-6">
             {filtered.map((product) => (
               <article
                 key={product.name}

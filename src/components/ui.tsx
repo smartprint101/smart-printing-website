@@ -10,14 +10,6 @@ import { cn } from "@/utils/cn";
 /* ----------------------------------------------------------------
    WhatsApp glyph (brand icon — not available in lucide)
 ----------------------------------------------------------------- */
-export function FacebookIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
-      <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z" />
-    </svg>
-  );
-}
-
 export function WhatsAppIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
@@ -90,7 +82,7 @@ export function Container({
   );
 }
 
-export function Eyebrow({
+function Eyebrow({
   children,
   light = false,
   className,
@@ -155,7 +147,7 @@ export function SectionHeading({
 /* ----------------------------------------------------------------
    Button
 ----------------------------------------------------------------- */
-type Variant = "gold" | "royal" | "whatsapp" | "outlineGold" | "outlineLight" | "white";
+type Variant = "gold" | "royal" | "whatsapp" | "outlineGold";
 type Size = "sm" | "md" | "lg";
 
 const variantClasses: Record<Variant, string> = {
@@ -163,8 +155,6 @@ const variantClasses: Record<Variant, string> = {
   royal: "bg-royal-700 text-white hover:bg-royal-800",
   whatsapp: "bg-[#176b46] text-white hover:bg-[#105436]",
   outlineGold: "border border-gold-400/70 text-gold-600 hover:bg-gold-50",
-  outlineLight: "border border-white/30 text-white hover:bg-white/10",
-  white: "bg-white text-royal-800 hover:bg-royal-50 shadow-card",
 };
 
 const sizeClasses: Record<Size, string> = {
@@ -182,7 +172,6 @@ export function Button({
   children,
   target,
   rel,
-  ariaLabel,
 }: {
   href?: string;
   onClick?: () => void;
@@ -192,7 +181,6 @@ export function Button({
   children: ReactNode;
   target?: string;
   rel?: string;
-  ariaLabel?: string;
 }) {
   return (
     <a
@@ -200,7 +188,6 @@ export function Button({
       onClick={onClick}
       target={target}
       rel={rel}
-      aria-label={ariaLabel}
       className={cn(
         "group inline-flex items-center justify-center rounded-xl font-semibold transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 focus-visible:ring-offset-2",
         variantClasses[variant],
@@ -210,87 +197,5 @@ export function Button({
     >
       {children}
     </a>
-  );
-}
-
-/* ----------------------------------------------------------------
-   Count-up (only for verified/static facts)
------------------------------------------------------------------ */
-export function CountUp({
-  end,
-  duration = 1600,
-  suffix = "",
-  prefix = "",
-  className,
-}: {
-  end: number;
-  duration?: number;
-  suffix?: string;
-  prefix?: string;
-  className?: string;
-}) {
-  const ref = useRef<HTMLSpanElement | null>(null);
-  const [value, setValue] = useState(0);
-  const started = useRef(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || !("IntersectionObserver" in window)) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          const start = performance.now();
-          const tick = (now: number) => {
-            const p = Math.min((now - start) / duration, 1);
-            const eased = 1 - Math.pow(1 - p, 3);
-            setValue(Math.round(eased * end));
-            if (p < 1) requestAnimationFrame(tick);
-          };
-          requestAnimationFrame(tick);
-        }
-      },
-      { threshold: 0.4 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [end, duration]);
-
-  return (
-    <span ref={ref} className={className}>
-      {prefix}
-      {value.toLocaleString("en-US")}
-      {suffix}
-    </span>
-  );
-}
-
-/* ----------------------------------------------------------------
-   Small "approx price" chip
------------------------------------------------------------------ */
-export function PriceTag({
-  label,
-  value,
-  tone = "gold",
-}: {
-  label?: string;
-  value: string;
-  tone?: "gold" | "royal" | "muted";
-}) {
-  const tones = {
-    gold: "bg-gold-50 text-gold-700 ring-gold-200",
-    royal: "bg-royal-50 text-royal-700 ring-royal-100",
-    muted: "bg-mist text-muted ring-line",
-  };
-  return (
-    <span
-      className={cn(
-        "inline-flex flex-col rounded-lg px-3 py-1.5 ring-1",
-        tones[tone]
-      )}
-    >
-      {label && <span className="text-[10px] font-semibold uppercase tracking-wide opacity-80">{label}</span>}
-      <span className="text-sm font-bold leading-tight">{value}</span>
-    </span>
   );
 }

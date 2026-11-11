@@ -1,17 +1,3 @@
-import {
-  Disc3,
-  ShoppingBag,
-  Package,
-  Sticker as StickerIcon,
-  Newspaper,
-  Box,
-  PackageCheck,
-  Printer,
-  Shield,
-  LayoutGrid,
-  type LucideIcon,
-} from "lucide-react";
-
 // ==================== IMAGE IMPORTS ====================
 
 import cylinderAI from "@/assets/services/cylinder.webp";
@@ -21,27 +7,21 @@ import artPaperImage from "@/assets/services/art-paper.webp";
 import ldPacket1 from "@/assets/services2/printed-ld-packet-1.webp";
 import ldPacket2 from "@/assets/services2/printed-ld-packet-2.webp";
 import ldPacket3 from "@/assets/services2/printed-ld-packet-3.webp";
-import ldPacket4 from "@/assets/services2/printed-ld-packet-4.webp";
-import ldPacket5 from "@/assets/services2/printed-ld-packet-5.webp";
 
 // Foil Packet (5 images)
 import foilPacket1 from "@/assets/services2/foil-pouch-1.webp";
 import foilPacket2 from "@/assets/services2/foil-pouch-2.webp";
 import foilPacket3 from "@/assets/services2/foil-pouch-3.webp";
-import foilPacket4 from "@/assets/services2/foil-pouch-4.webp";
-import foilPacket5 from "@/assets/services2/foil-pouch-5.webp";
 
 // Sticker (4 images)
 import sticker1 from "@/assets/services2/Sticker1.webp";
 import sticker2 from "@/assets/services2/Sticker2.webp";
 import sticker3 from "@/assets/services2/Sticker3.webp";
-import sticker4 from "@/assets/services2/Sticker4.webp";
 
 // Box (4 images)
 import box1 from "@/assets/services2/box1.webp";
 import box2 from "@/assets/services2/box2.webp";
 import box3 from "@/assets/services2/box3.webp";
-import box4 from "@/assets/services2/box4.webp";
 
 // Ready-made Packet (5 images)
 import readymadeFoil from "@/assets/services2/foilradymet.webp";
@@ -62,37 +42,17 @@ import offsetImage from "@/assets/services2/offset.webp";
 
 export const SERVICE_IMAGES: Record<string, string[]> = {
   cylinder: [cylinderAI],
-  "ld-packet": [ldPacket1, ldPacket2, ldPacket3, ldPacket4, ldPacket5],
-  "foil-packet": [
-    foilPacket1,
-    foilPacket2,
-    foilPacket3,
-    foilPacket4,
-    foilPacket5,
-  ],
-  sticker: [sticker1, sticker2, sticker3, sticker4],
+  "ld-packet": [ldPacket1, ldPacket2, ldPacket3],
+  "foil-packet": [foilPacket1, foilPacket2, foilPacket3],
+  sticker: [sticker1, sticker2, sticker3],
   "art-paper": [artPaperImage],
-  "custom-box": [box1, box2, box3, box4],
-  "ready-made": [
-    readymadeFoil,
-    readymadeZipper,
-    readymadeLd,
-    readymadeShrink,
-    readymadeSquare,
-  ],
+  "custom-box": [box1, box2, box3],
+  "ready-made": [readymadeFoil, readymadeZipper, readymadeLd],
   "security-poly": [security1, security2, security3],
   offset: [offsetImage],
-  other: [offsetImage, artPaperImage, sticker1, box1],
+  other: [offsetImage, artPaperImage, sticker1],
 };
 
-export const PACKET_SERVICE_IDS = new Set([
-  "cylinder",
-  "ld-packet",
-  "foil-packet",
-  "custom-box",
-  "ready-made",
-  "security-poly",
-]);
 
 // ==================== TYPES ====================
 
@@ -112,10 +72,7 @@ export interface ReadymadeProduct {
 
 export interface Service {
   id: string;
-  no: string;
-  icon: LucideIcon;
   title: string;
-  titleHighlight: string; // যে অংশটা highlight হবে
   summary: string;
   shortSummary?: string;
   whatIsIt?: string; // "এটা আসলে কী"
@@ -130,8 +87,6 @@ export interface Service {
   note?: string;
   comparison?: { title: string; items: string[] }[];
   cta: { text: string; message: string };
-  altCta?: { text: string; message: string };
-  featured?: boolean;
   detailExtra?: string[];
   readymadeProducts?: ReadymadeProduct[]; // Ready-made packet-এর জন্য
   extraInfo?: { title: string; content: string }; // Art Paper-এর মতো extra section-এর জন্য
@@ -143,10 +98,7 @@ export const SERVICES: Service[] = [
   // ==================== 1. CYLINDER ====================
   {
     id: "cylinder",
-    no: "01",
-    icon: Disc3,
     title: "Packaging Printing Cylinder",
-    titleHighlight: "Cylinder",
     summary:
       "প্যাকেজিং প্রিন্টিং সিলিন্ডার হলো একটি বিশেষ engraved rotary tool, যা flexible packaging (LD, Foil, BOPP) প্রিন্ট করার জন্য অপরিহার্য। আপনার ডিজাইনকে প্রতিটি প্যাকেটে নিখুঁতভাবে ছাপাতে এই সিলিন্ডার ব্যবহার করা হয়।",
     shortSummary:
@@ -205,21 +157,12 @@ export const SERVICES: Service[] = [
       message:
         "আসসালামু আলাইকুম। আমার প্যাকেটের জন্য Printing Cylinder প্রয়োজন। ডিজাইন ও Specification পাঠাচ্ছি, অনুগ্রহ করে মূল্য ও সময় জানান:",
     },
-    altCta: {
-      text: "বাজেট কম? বিকল্প জানুন",
-      message:
-        "আমার বাজেট কম। Cylinder-এর কম খরচের বিকল্প Solution সম্পর্কে জানান:",
-    },
-    featured: true,
   },
 
   // ==================== 2. LD PACKET ====================
   {
     id: "ld-packet",
-    no: "02",
-    icon: ShoppingBag,
     title: "Custom Printed LD Packet",
-    titleHighlight: "LD Packet",
     summary:
       "নিজের নামে পলি প্যাকেট প্রিন্টিং করাতে চাইলে LD (Low Density Polyethylene) প্যাকেট বিবেচনা করতে পারেন। পণ্যের ধরন ও সাইজ অনুযায়ী ব্র্যান্ডের নাম, লোগো ও ডিজাইন দিয়ে কাস্টম প্যাকেট তৈরি করা যায়।",
     shortSummary:
@@ -267,20 +210,12 @@ export const SERVICES: Service[] = [
       message:
         "আসসালামু আলাইকুম। আমি Custom Printed LD Packet অর্ডার করতে চাই। Size, Quantity ও ডিজাইন জানাচ্ছি, দাম ও সময় জানান:",
     },
-    altCta: {
-      text: "বাজেট কম? বিকল্প জানুন",
-      message:
-        "আমার বাজেট কম। অল্প খরচে LD Packet-এর বিকল্প Solution সম্পর্কে জানান:",
-    },
   },
 
   // ==================== 3. FOIL PACKET ====================
   {
     id: "foil-packet",
-    no: "03",
-    icon: Package,
     title: "Custom Printed Foil Packet",
-    titleHighlight: "Foil Packet",
     summary:
       "নিজের নাম ও লোগোসহ কাস্টম ফয়েল প্যাকেট বা পাউচ প্রিন্ট করান। পণ্যের প্রয়োজন অনুযায়ী ফিল্মের লেয়ার, সাইজ ও সিলিং বেছে নেওয়া জরুরি।",
     shortSummary:
@@ -328,20 +263,12 @@ export const SERVICES: Service[] = [
       message:
         "আসসালামু আলাইকুম। আমি Custom Printed Foil Packet অর্ডার করতে চাই। Size, Quantity ও ডিজাইন জানাচ্ছি, দাম ও সময় জানান:",
     },
-    altCta: {
-      text: "বাজেট কম? বিকল্প জানুন",
-      message:
-        "আমার বাজেট কম। অল্প খরচে Foil Packet-এর বিকল্প Solution সম্পর্কে জানান:",
-    },
   },
 
   // ==================== 4. STICKER ====================
   {
     id: "sticker",
-    no: "04",
-    icon: StickerIcon,
     title: "Sticker Printing",
-    titleHighlight: "Sticker",
     summary:
       "নিজের নাম ও লোগো দিয়ে স্টিকার ও লেবেল প্রিন্টিং করান। প্যাকেট, বক্স, বোতল বা জারে লাগানোর জন্য পণ্যের সাইজ ও উপযোগী স্টিকার ম্যাটেরিয়াল বেছে নিন।",
     shortSummary:
@@ -398,10 +325,7 @@ export const SERVICES: Service[] = [
   // ==================== 5. ART PAPER ====================
   {
     id: "art-paper",
-    no: "05",
-    icon: Newspaper,
     title: "Art Paper Printing",
-    titleHighlight: "Art Paper",
     summary:
       "উচ্চ মানের আর্ট পেপারে প্রফেশনাল প্রিন্টিং — Standard 20×30 inch শীটে আপনার প্রয়োজনীয় final size অনুযায়ী একাধিক piece layout করা যায়। ব্রোশিওর, লিফলেট, ম্যাগাজিন কভার, পোস্টারের জন্য পারফেক্ট।",
     shortSummary:
@@ -458,10 +382,7 @@ export const SERVICES: Service[] = [
   // ==================== 6. CUSTOM BOX ====================
   {
     id: "custom-box",
-    no: "06",
-    icon: Box,
     title: "Custom Printed Box",
-    titleHighlight: "Custom Box",
     summary:
       "নিজের ব্র্যান্ডের নাম, লোগো ও পণ্যের মাপ অনুযায়ী কাস্টম প্যাকেজিং বক্স প্রিন্টিং। বক্সের ধরন, বোর্ড, ডিজাইন ও প্রয়োজনীয় পরিমাণ জানিয়ে অর্ডারের তথ্য নিন।",
     shortSummary:
@@ -510,18 +431,15 @@ export const SERVICES: Service[] = [
   // ==================== 7. READY-MADE PACKET (Featured!) ====================
   {
     id: "ready-made",
-    no: "07",
-    icon: PackageCheck,
     title: "Ready-made Packet",
-    titleHighlight: "Ready-made Packet",
     summary:
-      "স্টকে থাকা রেডি-মেড প্যাকেট — Foil, Zipper, LD, Shrink ও Security Seal। ছোট পরিমাণে (মাত্র ১ কেজি থেকে) কিনতে পারবেন, কোনো সিলিন্ডার বা মিনিমাম বড় অর্ডার লাগবে না।",
+      "স্টকে থাকা রেডি-মেড প্যাকেট — Foil, Metal, Zipper, LD, Shrink ও Security Seal। ন্যূনতম ১০ কেজি থেকে কিনতে পারবেন, কোনো সিলিন্ডার বা মিনিমাম বড় অর্ডার লাগবে না।",
     shortSummary:
-      "স্টক Foil / Zipper / LD / Shrink / Square প্যাকেট — মাত্র 1 KG থেকেই নিতে পারবেন।",
+      "স্টক Foil / Metal / Zipper / LD / Shrink / Security প্যাকেট — ন্যূনতম ১০ কেজি থেকেই নিতে পারবেন।",
     whatIsIt:
       "Ready-made প্যাকেট হলো আগে থেকেই তৈরি করে রাখা প্লেইন বা সাধারণ প্রিন্টেড প্যাকেট। এতে কোনো কাস্টম ডিজাইন বা সিলিন্ডার লাগে না। ছোট ব্যবসায়ী, স্টার্টআপ বা যারা কম পরিমাণে প্যাকেট চান তাদের জন্য পারফেক্ট সমাধান।",
     benefits: [
-      "মাত্র ১ কেজি থেকে অর্ডার করা যায়",
+      "ন্যূনতম ১০ কেজি থেকে অর্ডার করা যায়",
       "কোনো সিলিন্ডার খরচ নেই",
       "তাৎক্ষণিক ডেলিভারি (স্টকে থাকলে)",
       "ছোট ব্যবসার জন্য আদর্শ",
@@ -537,7 +455,7 @@ export const SERVICES: Service[] = [
       "মৌসুমি ব্যবসা",
     ],
     facts: [
-      { label: "Minimum Order", value: "1 KG" },
+      { label: "Minimum Order", value: "10 KG" },
       { label: "Available", value: "সব সাইজ" },
       { label: "Cylinder", value: "প্রয়োজন নেই" },
       { label: "Delivery", value: "দ্রুত" },
@@ -546,52 +464,61 @@ export const SERVICES: Service[] = [
       {
         name: "ফয়েল প্যাকেট",
         image: readymadeFoil,
-        price: "৳৫৩০–৫৭০ / KG",
+        price: "৳৫৫০ / KG",
         size: "All Size Available",
-        minOrder: "1 KG",
+        minOrder: "১০ কেজি",
         waMessage:
           "আসসালামু আলাইকুম। আমি Ready-made ফয়েল প্যাকেট অর্ডার করতে চাই। প্রয়োজনীয় সাইজ ও পরিমাণ জানাচ্ছি:",
       },
       {
+        name: "মেটাল প্যাকেট",
+        image: readymadeFoil,
+        price: "৳৫২০ / KG",
+        size: "All Size Available",
+        minOrder: "১০ কেজি",
+        waMessage:
+          "আসসালামু আলাইকুম। আমি Ready-made মেটাল প্যাকেট অর্ডার করতে চাই। প্রয়োজনীয় সাইজ ও পরিমাণ জানাচ্ছি:",
+      },
+      {
         name: "জিপার প্যাকেট",
         image: readymadeZipper,
-        price: "৳৫০০–৫৫০ / KG",
+        price: "৳৬০০ / KG",
         size: "All Size Available",
-        minOrder: "1 KG",
+        minOrder: "১০ কেজি",
         waMessage:
           "আসসালামু আলাইকুম। আমি Ready-made জিপার প্যাকেট অর্ডার করতে চাই। প্রয়োজনীয় সাইজ ও পরিমাণ জানাচ্ছি:",
       },
       {
         name: "এলডি প্যাকেট",
         image: readymadeLd,
-        price: "৳৪২০–৪৬০ / KG",
+        price: "৳৪৮০ / KG",
         size: "All Size Available",
-        minOrder: "1 KG",
+        minOrder: "১০ কেজি",
         waMessage:
           "আসসালামু আলাইকুম। আমি Ready-made এলডি প্যাকেট অর্ডার করতে চাই। প্রয়োজনীয় সাইজ ও পরিমাণ জানাচ্ছি:",
       },
       {
         name: "শ্রিংক পলি",
         image: readymadeShrink,
-        price: "৳৩৫০–৫৫০ / KG",
+        price: "৳৫০০ / KG",
         size: "All Size Available",
-        minOrder: "1 KG",
+        minOrder: "১০ কেজি",
         waMessage:
           "আসসালামু আলাইকুম। আমি Ready-made শ্রিংক পলি অর্ডার করতে চাই। প্রয়োজনীয় সাইজ ও পরিমাণ জানাচ্ছি:",
       },
       {
         name: "সিকিউরিটি সিল",
         image: readymadeSquare,
-        price: "৳৪৫০–৬০০ / KG",
+        price: "৳৫২০ / KG",
         size: "All Size Available",
-        minOrder: "1 KG",
+        minOrder: "১০ কেজি",
         waMessage:
           "আসসালামু আলাইকুম। আমি Ready-made সিকিউরিটি সিল অর্ডার করতে চাই। প্রয়োজনীয় সাইজ ও পরিমাণ জানাচ্ছি:",
       },
     ],
     detailExtra: [
       "অর্ডারের আগে প্রোডাক্টের স্টক ও ডেলিভারির সময় নিশ্চিত করুন",
-      "চাহিদা মতো যেকোনো পরিমাণ (১ কেজি থেকে ১০০+ কেজি)",
+      "চাহিদা মতো যেকোনো পরিমাণ (ন্যূনতম ১০ কেজি থেকে ১০০+ কেজি)",
       "প্লেইন (সাদা) বা সাধারণ প্রিন্টেড অপশন",
       "ঢাকার ভেতরে সম্ভাব্য ডেলিভারি সময় অর্ডারের আগে নিশ্চিত করুন",
       "ঢাকার বাইরে কুরিয়ার ও সম্ভাব্য সময় আলোচনা করে নিশ্চিত করুন",
@@ -602,16 +529,12 @@ export const SERVICES: Service[] = [
       message:
         "আসসালামু আলাইকুম। আমি Ready-made Packet সম্পর্কে বিস্তারিত জানতে চাই। উপলব্ধ সব প্রোডাক্টের তালিকা ও দাম পাঠান:",
     },
-    featured: true,
   },
 
   // ==================== 8. SECURITY POLY (NEW!) ====================
   {
     id: "security-poly",
-    no: "08",
-    icon: Shield,
     title: "Security Poly",
-    titleHighlight: "Security Poly",
     summary:
       "সিকিউরিটি পলি একটি heat-shrink সিল, যা বোতল বা জারের মুখে লাগানোর প্রয়োজন অনুযায়ী বেছে নেওয়া হয়। সাইজ, লাগানোর পদ্ধতি ও পাত্রের সঙ্গে উপযোগিতা আগে যাচাই করুন।",
     shortSummary:
@@ -666,10 +589,7 @@ export const SERVICES: Service[] = [
   // ==================== 9. OFFSET PRINTING ====================
   {
     id: "offset",
-    no: "09",
-    icon: Printer,
     title: "Offset Printing",
-    titleHighlight: "Offset",
     summary:
       "অফসেট প্রিন্টিং হলো সবচেয়ে জনপ্রিয় ও উচ্চ মানের কমার্শিয়াল প্রিন্টিং পদ্ধতি — কর্পোরেট মেটেরিয়াল, বই, ম্যাগাজিন, প্যাকেজিং, লিফলেট, ব্রোশিওর সহ সব ধরনের কাগজে ছাপার জন্য।",
     shortSummary:
@@ -721,10 +641,7 @@ export const SERVICES: Service[] = [
   // ==================== 10. OTHER ====================
   {
     id: "other",
-    no: "10",
-    icon: LayoutGrid,
     title: "Other Printing & Packaging",
-    titleHighlight: "Other Printing",
     summary:
       "উপরের সেবাগুলো ছাড়াও আপনার আরও যেকোনো প্রিন্টিং বা প্যাকেজিং প্রয়োজন — Paper Bag, Shopping Bag, Label, Carton, LDP, বাংলা Printing সহ সব ধরনের কাস্টম সমাধান।",
     shortSummary:

@@ -43,7 +43,6 @@ interface Recommendation {
   boxNote?: string;
   extraNote?: string;
   showCostCalculator: boolean; // LD/Foil হলে true
-  otherOption?: boolean; // "অন্য কিছু" হলে সরাসরি WhatsApp
 }
 
 // ==================== QUIZ DATA ====================
@@ -197,7 +196,6 @@ function getRecommendation(
       needsSticker: false,
       needsBox: false,
       showCostCalculator: false,
-      otherOption: true,
     };
   }
 
@@ -440,7 +438,6 @@ function getRecommendation(
     needsSticker: false,
     needsBox: false,
     showCostCalculator: false,
-    otherOption: true,
   };
 }
 
